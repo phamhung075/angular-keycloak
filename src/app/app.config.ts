@@ -2,6 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import {
   HttpInterceptorFn,
   provideHttpClient,
+  withFetch,
   withInterceptors,
 } from '@angular/common/http';
 import {
@@ -188,7 +189,7 @@ export const appConfig: ApplicationConfig = {
     KeycloakWrapperService,
 
     // Configure HTTP client with custom interceptor
-    provideHttpClient(withInterceptors([keycloakInterceptor])),
+    provideHttpClient(withFetch(), withInterceptors([keycloakInterceptor])),
 
     // Initialize Keycloak
     {

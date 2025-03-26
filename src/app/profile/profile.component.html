@@ -1,0 +1,232 @@
+<!-- profile.component.html -->
+<div class="max-w-3xl mx-auto p-6">
+  <!-- Header -->
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">User Profile</h1>
+    <p class="text-gray-600">Manage your account information and preferences</p>
+  </div>
+
+  <!-- Loading state -->
+  @if (isLoading()) {
+  <div class="flex justify-center items-center h-64">
+    <div
+      class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"
+    ></div>
+  </div>
+  } @else {
+  <!-- Error message -->
+  @if (errorMessage()) {
+  <div
+    class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6"
+    role="alert"
+  >
+    <p>{{ errorMessage() }}</p>
+  </div>
+  }
+
+  <!-- Success message -->
+  @if (successMessage()) {
+  <div
+    class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6"
+    role="alert"
+  >
+    <p>{{ successMessage() }}</p>
+  </div>
+  }
+
+  <!-- Profile information -->
+  @if (userProfile()) {
+  <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
+    <!-- Profile header -->
+    <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-6">
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <div
+            class="h-20 w-20 rounded-full bg-white/30 flex items-center justify-center text-white text-2xl font-semibold"
+          >
+            {{ userProfile()?.firstName?.charAt(0) || ""
+            }}{{ userProfile()?.lastName?.charAt(0) || "" }}
+          </div>
+        </div>
+        <div class="ml-6 text-white">
+          <h2 class="text-xl font-bold">{{ displayName() }}</h2>
+          <p>{{ userProfile()?.email }}</p>
+          <p class="text-blue-100 text-sm mt-1">
+            Username: {{ userProfile()?.username }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Profile edit form -->
+    <div class="p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-lg font-medium text-gray-900">Personal Information</h3>
+        <div>
+          @if (isEditing()) {
+          <button
+            (click)="saveProfile()"
+            [disabled]="!isFormValid() || isLoading()"
+            class="mr-2 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Save Changes
+          </button>
+          <button
+            (click)="toggleEditMode()"
+            class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Cancel
+          </button>
+          } @else {
+          <button
+            (click)="toggleEditMode()"
+            class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Edit Profile
+          </button>
+          }
+        </div>
+      </div>
+
+      <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+        <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+          <!-- First Name -->
+          <div class="sm:col-span-3">
+            <label
+              for="firstName"
+              class="block text-sm font-medium text-gray-700"
+              >First Name</label
+            >
+            <div class="mt-1">
+              <input
+                type="text"
+                id="firstName"
+                formControlName="firstName"
+                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              />
+            </div>
+            @if (profileForm.get('firstName')?.invalid &&
+            profileForm.get('firstName')?.touched) {
+            <p class="mt-2 text-sm text-red-600">First name is required</p>
+            }
+          </div>
+
+          <!-- Last Name -->
+          <div class="sm:col-span-3">
+            <label
+              for="lastName"
+              class="block text-sm font-medium text-gray-700"
+              >Last Name</label
+            >
+            <div class="mt-1">
+              <input
+                type="text"
+                id="lastName"
+                formControlName="lastName"
+                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              />
+            </div>
+            @if (profileForm.get('lastName')?.invalid &&
+            profileForm.get('lastName')?.touched) {
+            <p class="mt-2 text-sm text-red-600">Last name is required</p>
+            }
+          </div>
+
+          <!-- Email -->
+          <div class="sm:col-span-4">
+            <label for="email" class="block text-sm font-medium text-gray-700"
+              >Email</label
+            >
+            <div class="mt-1">
+              <input
+                type="email"
+                id="email"
+                formControlName="email"
+                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              />
+            </div>
+            @if (profileForm.get('email')?.invalid &&
+            profileForm.get('email')?.touched) {
+            <p class="mt-2 text-sm text-red-600">
+              @if (profileForm.get('email')?.errors?.['required']) { Email is
+              required } @else if (profileForm.get('email')?.errors?.['email'])
+              { Please enter a valid email address }
+            </p>
+            }
+          </div>
+
+          <!-- Phone -->
+          <div class="sm:col-span-4">
+            <label for="phone" class="block text-sm font-medium text-gray-700"
+              >Phone Number</label
+            >
+            <div class="mt-1">
+              <input
+                type="tel"
+                id="phone"
+                formControlName="phone"
+                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              />
+            </div>
+            @if (profileForm.get('phone')?.invalid &&
+            profileForm.get('phone')?.touched) {
+            <p class="mt-2 text-sm text-red-600">
+              Please enter a valid phone number
+            </p>
+            }
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Account Actions -->
+  <div class="bg-white rounded-lg shadow-md overflow-hidden">
+    <div class="p-6">
+      <h3 class="text-lg font-medium text-gray-900 mb-6">Account Actions</h3>
+
+      <div class="space-y-4">
+        <div
+          class="flex items-center justify-between py-4 border-b border-gray-200"
+        >
+          <div>
+            <h4 class="text-base font-medium text-gray-900">Sign Out</h4>
+            <p class="text-sm text-gray-500">Log out from all devices</p>
+          </div>
+          <button
+            (click)="logout()"
+            class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+          >
+            Sign Out
+          </button>
+        </div>
+
+        <div
+          class="flex items-center justify-between py-4 border-b border-gray-200"
+        >
+          <div>
+            <h4 class="text-base font-medium text-gray-900">Change Password</h4>
+            <p class="text-sm text-gray-500">Update your account password</p>
+          </div>
+          <button
+            class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Change Password
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  } @else {
+  <!-- No profile data available -->
+  <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+    <div class="flex">
+      <div class="ml-3">
+        <p class="text-sm text-yellow-700">
+          No profile information available. Please try logging in again.
+        </p>
+      </div>
+    </div>
+  </div>
+  } }
+</div>

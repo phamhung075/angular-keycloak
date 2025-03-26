@@ -1,10 +1,11 @@
 // auth.service.ts
+import { isPlatformBrowser } from '@angular/common';
 import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
 } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
@@ -36,6 +37,7 @@ interface UserCredentials {
 export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
+  private platformId = inject(PLATFORM_ID);
 
   private keycloakConfig: KeycloakConfig = {
     url: 'http://localhost:8080',
@@ -76,14 +78,20 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-    localStorage.removeItem('token_expires_at');
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+      localStorage.removeItem('token_expires_at');
+    }
     this.isAuthenticatedSubject.next(false);
     this.router.navigate(['/login']);
   }
 
   refreshToken(): Observable<AuthResponse> {
+    if (!isPlatformBrowser(this.platformId)) {
+      return throwError(() => new Error('Cannot refresh token during SSR'));
+    }
+
     const refreshToken = localStorage.getItem('refresh_token');
 
     if (!refreshToken) {
@@ -114,6 +122,10 @@ export class AuthService {
   }
 
   getToken(): string | null {
+    if (!isPlatformBrowser(this.platformId)) {
+      return null;
+    }
+
     const token = localStorage.getItem('access_token');
     const expiresAt = localStorage.getItem('token_expires_at');
 
@@ -132,6 +144,10 @@ export class AuthService {
   }
 
   private storeTokens(response: AuthResponse): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
     const expiresAt = new Date().getTime() + response.expires_in * 1000;
 
     localStorage.setItem('access_token', response.access_token);
@@ -140,6 +156,10 @@ export class AuthService {
   }
 
   private hasValidToken(): boolean {
+    if (!isPlatformBrowser(this.platformId)) {
+      return false;
+    }
+
     const token = localStorage.getItem('access_token');
     const expiresAt = localStorage.getItem('token_expires_at');
 

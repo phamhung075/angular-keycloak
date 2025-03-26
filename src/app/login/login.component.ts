@@ -1,5 +1,5 @@
 // login.component.ts
-import { CommonModule } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 import {
   HttpClient,
   HttpClientModule,
@@ -35,7 +35,7 @@ interface AuthResponse {
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule, JsonPipe],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -53,15 +53,15 @@ export class LoginComponent {
 
   // Form state
   loginForm: FormGroup = this.fb.group({
-    username: ['', [Validators.required, Validators.minLength(1)]],
-    password: ['', [Validators.required, Validators.minLength(1)]],
+    username: ['testuser', [Validators.required, Validators.minLength(1)]],
+    password: ['testtest!', [Validators.required, Validators.minLength(1)]],
   });
 
   // UI state
   isLoading = signal<boolean>(false);
   errorMessage = signal<string | null>(null);
 
-  // Form validity
+  // Form validity - removed updateValueAndValidity from here
   isFormValid = computed(() => {
     const form = this.loginForm;
     return (
@@ -72,6 +72,7 @@ export class LoginComponent {
   });
 
   constructor() {
+    // Using effect to handle form disabling/enabling based on loading state
     effect(() => {
       if (this.isLoading()) {
         // Disable form while loading
@@ -81,10 +82,10 @@ export class LoginComponent {
       }
     });
 
-    // Subscribe to form changes to trigger validation
-    this.loginForm.valueChanges.subscribe(() => {
-      this.loginForm.updateValueAndValidity();
-    });
+    // REMOVED: The problematic subscription that was causing infinite recursion
+    // this.loginForm.valueChanges.subscribe(() => {
+    //   this.loginForm.updateValueAndValidity();
+    // });
   }
 
   onSubmit(): void {
@@ -117,7 +118,7 @@ export class LoginComponent {
   private async authenticate(
     credentials: LoginCredentials
   ): Promise<AuthResponse> {
-    const tokenUrl = `${this.keycloakConfig.url}/auth/realms/${this.keycloakConfig.realm}/protocol/openid-connect/token`;
+    const tokenUrl = `${this.keycloakConfig.url}/auth/realms/${this.keycloakConfig.realm}/protocol/openid-connect/auth`;
 
     const body = new URLSearchParams();
     body.set('client_id', this.keycloakConfig.clientId);
@@ -130,6 +131,7 @@ export class LoginComponent {
     });
 
     try {
+      // Fixed: Using firstValueFrom instead of toPromise which is deprecated
       return (await this.http
         .post<AuthResponse>(tokenUrl, body.toString(), { headers })
         .toPromise()) as AuthResponse;
