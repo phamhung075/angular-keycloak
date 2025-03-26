@@ -1,0 +1,105 @@
+<!-- login.component.html -->
+<div
+  class="flex min-h-screen items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8"
+>
+  <div class="w-full max-w-md space-y-8">
+    <div class="text-center">
+      <h2 class="mt-6 text-3xl font-bold tracking-tight text-gray-900">
+        Sign in to your account
+      </h2>
+      <p class="mt-2 text-sm text-gray-600">
+        Enter your credentials to continue
+      </p>
+    </div>
+    <div>
+      <p>
+        {{ loginForm.value | json }}
+      </p>
+    </div>
+
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()"
+      class="mt-8 space-y-6"
+    >
+      <div class="space-y-4 rounded-md shadow-sm">
+        <div>
+          <label for="username" class="sr-only">Username</label>
+          <input
+            id="username"
+            formControlName="username"
+            type="text"
+            autocomplete="username"
+            class="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
+            placeholder="Username"
+          />
+          @if (loginForm.get('username')?.invalid &&
+          loginForm.get('username')?.touched) {
+          <p class="mt-1 text-sm text-red-600">Username is required</p>
+          }
+        </div>
+
+        <div>
+          <label for="password" class="sr-only">Password</label>
+          <input
+            id="password"
+            formControlName="password"
+            type="password"
+            autocomplete="current-password"
+            class="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
+            placeholder="Password"
+          />
+          @if (loginForm.get('password')?.invalid &&
+          loginForm.get('password')?.touched) {
+          <p class="mt-1 text-sm text-red-600">Password is required</p>
+          }
+        </div>
+      </div>
+
+      @if (errorMessage()) {
+      <div class="rounded-md bg-red-50 p-4">
+        <div class="flex">
+          <div class="ml-3">
+            <h3 class="text-sm font-medium text-red-800">Error</h3>
+            <div class="mt-2 text-sm text-red-700">
+              <p>{{ errorMessage() }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+
+      <div>
+        <button
+          type="submit"
+          class="group relative flex w-full justify-center rounded-md border border-transparent bg-blue-600 py-2 px-4 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          @if (isLoading()) {
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+            <svg
+              class="h-5 w-5 animate-spin text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+          </span>
+          Signing in... } @else { Sign in }
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
