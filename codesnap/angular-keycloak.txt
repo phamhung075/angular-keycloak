@@ -1,0 +1,2861 @@
+Project Directory: angular-keycloak
+Total Files Analyzed: 41
+Total Size: 0.08 MB
+Date: 2025-03-26T09:34:52.336Z
+
+Token counts and costs by model:
+   GPT-3.5: 24.9K tokens → $0.0374
+   GPT-4:   24.9K tokens → $0.7477
+   Claude:  24.9K tokens → $0.3738
+   LLaMA 2: 27.4K tokens → $0.0548
+
+Directory structure:
+├── .angular/
+│   └── vite-root/
+│       └── browser/
+│           └── assets/
+│               └── silent-check-sso.html
+├── src/
+│   ├── app/
+│   │   ├── auth/
+│   │   │   ├── auth.guard.ts
+│   │   │   └── keycloak-init.ts
+│   │   ├── home/
+│   │   │   ├── home.component.html
+│   │   │   ├── home.component.scss
+│   │   │   ├── home.component.spec.ts
+│   │   │   └── home.component.ts
+│   │   ├── keycloak-diagnostic/
+│   │   │   ├── keycloak-diagnostic.component.html
+│   │   │   ├── keycloak-diagnostic.component.scss
+│   │   │   ├── keycloak-diagnostic.component.spec.ts
+│   │   │   └── keycloak-diagnostic.component.ts
+│   │   ├── services/
+│   │   │   ├── keycloak-error-handler.service.spec.ts
+│   │   │   ├── keycloak-error-handler.service.ts
+│   │   │   ├── keycloak-wrapper.service.spec.ts
+│   │   │   └── keycloak-wrapper.service.ts
+│   │   ├── unauthorized/
+│   │   │   ├── unauthorized.component.html
+│   │   │   ├── unauthorized.component.scss
+│   │   │   ├── unauthorized.component.spec.ts
+│   │   │   └── unauthorized.component.ts
+│   │   ├── app.component.html
+│   │   ├── app.component.scss
+│   │   ├── app.component.spec.ts
+│   │   ├── app.component.ts
+│   │   ├── app.config.server.ts
+│   │   ├── app.config.ts
+│   │   ├── app.routes.server.ts
+│   │   └── app.routes.ts
+│   ├── assets/
+│   │   └── silent-check-sso.html
+│   ├── index.html
+│   ├── main.server.ts
+│   ├── main.ts
+│   ├── server.ts
+│   └── styles.scss
+├── .editorconfig
+├── .gitignore
+├── angular.json
+├── package.json
+├── README.md
+├── tsconfig.app.json
+├── tsconfig.json
+└── tsconfig.spec.json
+
+================================================
+File: README.md
+================================================
+# AngularKeycloak
+
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.8.
+
+## Development server
+
+To start a local development server, run:
+
+```bash
+ng serve
+```
+
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+
+## Code scaffolding
+
+Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+
+```bash
+ng generate component component-name
+```
+
+For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+
+```bash
+ng generate --help
+```
+
+## Building
+
+To build the project run:
+
+```bash
+ng build
+```
+
+This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+
+## Running unit tests
+
+To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+
+```bash
+ng test
+```
+
+## Running end-to-end tests
+
+For end-to-end (e2e) testing, run:
+
+```bash
+ng e2e
+```
+
+Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+
+## Additional Resources
+
+For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+
+================================================
+File: .angular/vite-root/browser/assets/silent-check-sso.html
+================================================
+<html>
+  <body>
+    <script>
+      parent.postMessage(location.href, location.origin);
+    </script>
+  </body>
+</html>
+
+================================================
+File: .editorconfig
+================================================
+# Editor configuration, see https://editorconfig.org
+root = true
+
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.ts]
+quote_type = single
+ij_typescript_use_double_quotes = false
+
+[*.md]
+max_line_length = off
+trim_trailing_whitespace = false
+
+
+================================================
+File: .gitignore
+================================================
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+
+# Compiled output
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# Miscellaneous
+/.angular/cache
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+
+# System files
+.DS_Store
+Thumbs.db
+
+
+================================================
+File: angular.json
+================================================
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "angular-keycloak": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/angular-keycloak",
+            "index": "src/index.html",
+            "browser": "src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "src/favicon.ico",
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "/assets/"
+              }
+            ],
+            "styles": ["src/styles.scss"],
+            "scripts": [],
+            "server": "src/main.server.ts",
+            "outputMode": "server",
+            "ssr": {
+              "entry": "src/server.ts"
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "angular-keycloak:build:production"
+            },
+            "development": {
+              "buildTarget": "angular-keycloak:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "tsConfig": "tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
+            ],
+            "styles": ["src/styles.scss"],
+            "scripts": []
+          }
+        }
+      }
+    }
+  }
+}
+
+
+================================================
+File: package.json
+================================================
+{
+  "name": "angular-keycloak",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "serve:ssr:angular-keycloak": "node dist/angular-keycloak/server/server.mjs"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^19.1.0",
+    "@angular/common": "^19.1.0",
+    "@angular/compiler": "^19.1.0",
+    "@angular/core": "^19.1.0",
+    "@angular/forms": "^19.1.0",
+    "@angular/platform-browser": "^19.1.0",
+    "@angular/platform-browser-dynamic": "^19.1.0",
+    "@angular/platform-server": "^19.1.0",
+    "@angular/router": "^19.1.0",
+    "@angular/ssr": "^19.1.8",
+    "express": "^4.18.2",
+    "keycloak-angular": "^19.0.2",
+    "keycloak-js": "^26.1.4",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.15.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^19.1.8",
+    "@angular/cli": "^19.1.8",
+    "@angular/compiler-cli": "^19.1.0",
+    "@types/express": "^4.17.17",
+    "@types/jasmine": "~5.1.0",
+    "@types/node": "^18.18.0",
+    "jasmine-core": "~5.5.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "typescript": "~5.7.2"
+  }
+}
+
+================================================
+File: src/app/app.component.html
+================================================
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+<style>
+  :host {
+    --bright-blue: oklch(51.01% 0.274 263.83);
+    --electric-violet: oklch(53.18% 0.28 296.97);
+    --french-violet: oklch(47.66% 0.246 305.88);
+    --vivid-pink: oklch(69.02% 0.277 332.77);
+    --hot-red: oklch(61.42% 0.238 15.34);
+    --orange-red: oklch(63.32% 0.24 31.68);
+
+    --gray-900: oklch(19.37% 0.006 300.98);
+    --gray-700: oklch(36.98% 0.014 302.71);
+    --gray-400: oklch(70.9% 0.015 304.04);
+
+    --red-to-pink-to-purple-vertical-gradient: linear-gradient(
+      180deg,
+      var(--orange-red) 0%,
+      var(--vivid-pink) 50%,
+      var(--electric-violet) 100%
+    );
+
+    --red-to-pink-to-purple-horizontal-gradient: linear-gradient(
+      90deg,
+      var(--orange-red) 0%,
+      var(--vivid-pink) 50%,
+      var(--electric-violet) 100%
+    );
+
+    --pill-accent: var(--bright-blue);
+
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol";
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1 {
+    font-size: 3.125rem;
+    color: var(--gray-900);
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.125rem;
+    margin: 0;
+    font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol";
+  }
+
+  p {
+    margin: 0;
+    color: var(--gray-700);
+  }
+
+  main {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: inherit;
+    position: relative;
+  }
+
+  .angular-logo {
+    max-width: 9.2rem;
+  }
+
+  .content {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 3rem;
+  }
+
+  .content h1 {
+    margin-top: 1.75rem;
+  }
+
+  .content p {
+    margin-top: 1.5rem;
+  }
+
+  .divider {
+    width: 1px;
+    background: var(--red-to-pink-to-purple-vertical-gradient);
+    margin-inline: 0.5rem;
+  }
+
+  .pill-group {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+
+  .pill {
+    display: flex;
+    align-items: center;
+    --pill-accent: var(--bright-blue);
+    background: color-mix(in srgb, var(--pill-accent) 5%, transparent);
+    color: var(--pill-accent);
+    padding-inline: 0.75rem;
+    padding-block: 0.375rem;
+    border-radius: 2.75rem;
+    border: 0;
+    transition: background 0.3s ease;
+    font-family: var(--inter-font);
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.4rem;
+    letter-spacing: -0.00875rem;
+    text-decoration: none;
+  }
+
+  .pill:hover {
+    background: color-mix(in srgb, var(--pill-accent) 15%, transparent);
+  }
+
+  .pill-group .pill:nth-child(6n + 1) {
+    --pill-accent: var(--bright-blue);
+  }
+  .pill-group .pill:nth-child(6n + 2) {
+    --pill-accent: var(--french-violet);
+  }
+  .pill-group .pill:nth-child(6n + 3),
+  .pill-group .pill:nth-child(6n + 4),
+  .pill-group .pill:nth-child(6n + 5) {
+    --pill-accent: var(--hot-red);
+  }
+
+  .pill-group svg {
+    margin-inline-start: 0.25rem;
+  }
+
+  .social-links {
+    display: flex;
+    align-items: center;
+    gap: 0.73rem;
+    margin-top: 1.5rem;
+  }
+
+  .social-links path {
+    transition: fill 0.3s ease;
+    fill: var(--gray-400);
+  }
+
+  .social-links a:hover svg path {
+    fill: var(--gray-900);
+  }
+
+  @media screen and (max-width: 650px) {
+    .content {
+      flex-direction: column;
+      width: max-content;
+    }
+
+    .divider {
+      height: 1px;
+      width: 100%;
+      background: var(--red-to-pink-to-purple-horizontal-gradient);
+      margin-block: 1.5rem;
+    }
+  }
+</style>
+
+<main class="main">
+  <div class="content">
+    <div class="left-side">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 982 239"
+        fill="none"
+        class="angular-logo"
+      >
+        <g clip-path="url(#a)">
+          <path
+            fill="url(#b)"
+            d="M388.676 191.625h30.849L363.31 31.828h-35.758l-56.215 159.797h30.848l13.174-39.356h60.061l13.256 39.356Zm-65.461-62.675 21.602-64.311h1.227l21.602 64.311h-44.431Zm126.831-7.527v70.202h-28.23V71.839h27.002v20.374h1.392c2.782-6.71 7.2-12.028 13.255-15.956 6.056-3.927 13.584-5.89 22.503-5.89 8.264 0 15.465 1.8 21.684 5.318 6.137 3.518 10.964 8.673 14.319 15.382 3.437 6.71 5.074 14.81 4.992 24.383v76.175h-28.23v-71.92c0-8.019-2.046-14.237-6.219-18.819-4.173-4.5-9.819-6.791-17.102-6.791-4.91 0-9.328 1.063-13.174 3.272-3.846 2.128-6.792 5.237-9.001 9.328-2.046 4.009-3.191 8.918-3.191 14.728ZM589.233 239c-10.147 0-18.82-1.391-26.103-4.091-7.282-2.7-13.092-6.382-17.511-10.964-4.418-4.582-7.528-9.655-9.164-15.219l25.448-6.136c1.145 2.372 2.782 4.663 4.991 6.954 2.209 2.291 5.155 4.255 8.837 5.81 3.683 1.554 8.428 2.291 14.074 2.291 8.019 0 14.647-1.964 19.884-5.81 5.237-3.845 7.856-10.227 7.856-19.064v-22.665h-1.391c-1.473 2.946-3.601 5.892-6.383 9.001-2.782 3.109-6.464 5.645-10.965 7.691-4.582 2.046-10.228 3.109-17.101 3.109-9.165 0-17.511-2.209-25.039-6.545-7.446-4.337-13.42-10.883-17.757-19.474-4.418-8.673-6.628-19.473-6.628-32.565 0-13.091 2.21-24.301 6.628-33.383 4.419-9.082 10.311-15.955 17.839-20.7 7.528-4.746 15.874-7.037 25.039-7.037 7.037 0 12.846 1.145 17.347 3.518 4.582 2.373 8.182 5.236 10.883 8.51 2.7 3.272 4.746 6.382 6.137 9.327h1.554v-19.8h27.821v121.749c0 10.228-2.454 18.737-7.364 25.447-4.91 6.709-11.538 11.7-20.048 15.055-8.509 3.355-18.165 4.991-28.884 4.991Zm.245-71.266c5.974 0 11.047-1.473 15.302-4.337 4.173-2.945 7.446-7.118 9.573-12.519 2.21-5.482 3.274-12.027 3.274-19.637 0-7.609-1.064-14.155-3.274-19.8-2.127-5.646-5.318-10.064-9.491-13.255-4.174-3.11-9.329-4.746-15.384-4.746s-11.537 1.636-15.792 4.91c-4.173 3.272-7.365 7.772-9.492 13.418-2.128 5.727-3.191 12.191-3.191 19.392 0 7.2 1.063 13.745 3.273 19.228 2.127 5.482 5.318 9.736 9.573 12.764 4.174 3.027 9.41 4.582 15.629 4.582Zm141.56-26.51V71.839h28.23v119.786h-27.412v-21.273h-1.227c-2.7 6.709-7.119 12.191-13.338 16.446-6.137 4.255-13.747 6.382-22.748 6.382-7.855 0-14.81-1.718-20.783-5.237-5.974-3.518-10.72-8.591-14.075-15.382-3.355-6.709-5.073-14.891-5.073-24.464V71.839h28.312v71.921c0 7.609 2.046 13.664 6.219 18.083 4.173 4.5 9.655 6.709 16.365 6.709 4.173 0 8.183-.982 12.111-3.028 3.927-2.045 7.118-5.072 9.655-9.082 2.537-4.091 3.764-9.164 3.764-15.218Zm65.707-109.395v159.796h-28.23V31.828h28.23Zm44.841 162.169c-7.61 0-14.402-1.391-20.457-4.091-6.055-2.7-10.883-6.791-14.32-12.109-3.518-5.319-5.237-11.946-5.237-19.801 0-6.791 1.228-12.355 3.765-16.773 2.536-4.419 5.891-7.937 10.228-10.637 4.337-2.618 9.164-4.664 14.647-6.055 5.4-1.391 11.046-2.373 16.856-3.027 7.037-.737 12.683-1.391 17.102-1.964 4.337-.573 7.528-1.555 9.574-2.782 1.963-1.309 3.027-3.273 3.027-5.973v-.491c0-5.891-1.718-10.391-5.237-13.664-3.518-3.191-8.51-4.828-15.056-4.828-6.955 0-12.356 1.473-16.447 4.5-4.009 3.028-6.71 6.546-8.183 10.719l-26.348-3.764c2.046-7.282 5.483-13.336 10.31-18.328 4.746-4.909 10.638-8.59 17.511-11.045 6.955-2.455 14.565-3.682 22.912-3.682 5.809 0 11.537.654 17.265 2.045s10.965 3.6 15.711 6.71c4.746 3.109 8.51 7.282 11.455 12.6 2.864 5.318 4.337 11.946 4.337 19.883v80.184h-27.166v-16.446h-.9c-1.719 3.355-4.092 6.464-7.201 9.328-3.109 2.864-6.955 5.237-11.619 6.955-4.828 1.718-10.229 2.536-16.529 2.536Zm7.364-20.701c5.646 0 10.556-1.145 14.729-3.354 4.173-2.291 7.364-5.237 9.655-9.001 2.292-3.763 3.355-7.854 3.355-12.273v-14.155c-.9.737-2.373 1.391-4.5 2.046-2.128.654-4.419 1.145-7.037 1.636-2.619.491-5.155.9-7.692 1.227-2.537.328-4.746.655-6.628.901-4.173.572-8.019 1.472-11.292 2.781-3.355 1.31-5.973 3.11-7.855 5.401-1.964 2.291-2.864 5.318-2.864 8.918 0 5.237 1.882 9.164 5.728 11.782 3.682 2.782 8.51 4.091 14.401 4.091Zm64.643 18.328V71.839h27.412v19.965h1.227c2.21-6.955 5.974-12.274 11.292-16.038 5.319-3.763 11.456-5.645 18.329-5.645 1.555 0 3.355.082 5.237.163 1.964.164 3.601.328 4.91.573v25.938c-1.227-.41-3.109-.819-5.646-1.146a58.814 58.814 0 0 0-7.446-.49c-5.155 0-9.738 1.145-13.829 3.354-4.091 2.209-7.282 5.236-9.655 9.164-2.373 3.927-3.519 8.427-3.519 13.5v70.448h-28.312ZM222.077 39.192l-8.019 125.923L137.387 0l84.69 39.192Zm-53.105 162.825-57.933 33.056-57.934-33.056 11.783-28.556h92.301l11.783 28.556ZM111.039 62.675l30.357 73.803H80.681l30.358-73.803ZM7.937 165.115 0 39.192 84.69 0 7.937 165.115Z"
+          />
+          <path
+            fill="url(#c)"
+            d="M388.676 191.625h30.849L363.31 31.828h-35.758l-56.215 159.797h30.848l13.174-39.356h60.061l13.256 39.356Zm-65.461-62.675 21.602-64.311h1.227l21.602 64.311h-44.431Zm126.831-7.527v70.202h-28.23V71.839h27.002v20.374h1.392c2.782-6.71 7.2-12.028 13.255-15.956 6.056-3.927 13.584-5.89 22.503-5.89 8.264 0 15.465 1.8 21.684 5.318 6.137 3.518 10.964 8.673 14.319 15.382 3.437 6.71 5.074 14.81 4.992 24.383v76.175h-28.23v-71.92c0-8.019-2.046-14.237-6.219-18.819-4.173-4.5-9.819-6.791-17.102-6.791-4.91 0-9.328 1.063-13.174 3.272-3.846 2.128-6.792 5.237-9.001 9.328-2.046 4.009-3.191 8.918-3.191 14.728ZM589.233 239c-10.147 0-18.82-1.391-26.103-4.091-7.282-2.7-13.092-6.382-17.511-10.964-4.418-4.582-7.528-9.655-9.164-15.219l25.448-6.136c1.145 2.372 2.782 4.663 4.991 6.954 2.209 2.291 5.155 4.255 8.837 5.81 3.683 1.554 8.428 2.291 14.074 2.291 8.019 0 14.647-1.964 19.884-5.81 5.237-3.845 7.856-10.227 7.856-19.064v-22.665h-1.391c-1.473 2.946-3.601 5.892-6.383 9.001-2.782 3.109-6.464 5.645-10.965 7.691-4.582 2.046-10.228 3.109-17.101 3.109-9.165 0-17.511-2.209-25.039-6.545-7.446-4.337-13.42-10.883-17.757-19.474-4.418-8.673-6.628-19.473-6.628-32.565 0-13.091 2.21-24.301 6.628-33.383 4.419-9.082 10.311-15.955 17.839-20.7 7.528-4.746 15.874-7.037 25.039-7.037 7.037 0 12.846 1.145 17.347 3.518 4.582 2.373 8.182 5.236 10.883 8.51 2.7 3.272 4.746 6.382 6.137 9.327h1.554v-19.8h27.821v121.749c0 10.228-2.454 18.737-7.364 25.447-4.91 6.709-11.538 11.7-20.048 15.055-8.509 3.355-18.165 4.991-28.884 4.991Zm.245-71.266c5.974 0 11.047-1.473 15.302-4.337 4.173-2.945 7.446-7.118 9.573-12.519 2.21-5.482 3.274-12.027 3.274-19.637 0-7.609-1.064-14.155-3.274-19.8-2.127-5.646-5.318-10.064-9.491-13.255-4.174-3.11-9.329-4.746-15.384-4.746s-11.537 1.636-15.792 4.91c-4.173 3.272-7.365 7.772-9.492 13.418-2.128 5.727-3.191 12.191-3.191 19.392 0 7.2 1.063 13.745 3.273 19.228 2.127 5.482 5.318 9.736 9.573 12.764 4.174 3.027 9.41 4.582 15.629 4.582Zm141.56-26.51V71.839h28.23v119.786h-27.412v-21.273h-1.227c-2.7 6.709-7.119 12.191-13.338 16.446-6.137 4.255-13.747 6.382-22.748 6.382-7.855 0-14.81-1.718-20.783-5.237-5.974-3.518-10.72-8.591-14.075-15.382-3.355-6.709-5.073-14.891-5.073-24.464V71.839h28.312v71.921c0 7.609 2.046 13.664 6.219 18.083 4.173 4.5 9.655 6.709 16.365 6.709 4.173 0 8.183-.982 12.111-3.028 3.927-2.045 7.118-5.072 9.655-9.082 2.537-4.091 3.764-9.164 3.764-15.218Zm65.707-109.395v159.796h-28.23V31.828h28.23Zm44.841 162.169c-7.61 0-14.402-1.391-20.457-4.091-6.055-2.7-10.883-6.791-14.32-12.109-3.518-5.319-5.237-11.946-5.237-19.801 0-6.791 1.228-12.355 3.765-16.773 2.536-4.419 5.891-7.937 10.228-10.637 4.337-2.618 9.164-4.664 14.647-6.055 5.4-1.391 11.046-2.373 16.856-3.027 7.037-.737 12.683-1.391 17.102-1.964 4.337-.573 7.528-1.555 9.574-2.782 1.963-1.309 3.027-3.273 3.027-5.973v-.491c0-5.891-1.718-10.391-5.237-13.664-3.518-3.191-8.51-4.828-15.056-4.828-6.955 0-12.356 1.473-16.447 4.5-4.009 3.028-6.71 6.546-8.183 10.719l-26.348-3.764c2.046-7.282 5.483-13.336 10.31-18.328 4.746-4.909 10.638-8.59 17.511-11.045 6.955-2.455 14.565-3.682 22.912-3.682 5.809 0 11.537.654 17.265 2.045s10.965 3.6 15.711 6.71c4.746 3.109 8.51 7.282 11.455 12.6 2.864 5.318 4.337 11.946 4.337 19.883v80.184h-27.166v-16.446h-.9c-1.719 3.355-4.092 6.464-7.201 9.328-3.109 2.864-6.955 5.237-11.619 6.955-4.828 1.718-10.229 2.536-16.529 2.536Zm7.364-20.701c5.646 0 10.556-1.145 14.729-3.354 4.173-2.291 7.364-5.237 9.655-9.001 2.292-3.763 3.355-7.854 3.355-12.273v-14.155c-.9.737-2.373 1.391-4.5 2.046-2.128.654-4.419 1.145-7.037 1.636-2.619.491-5.155.9-7.692 1.227-2.537.328-4.746.655-6.628.901-4.173.572-8.019 1.472-11.292 2.781-3.355 1.31-5.973 3.11-7.855 5.401-1.964 2.291-2.864 5.318-2.864 8.918 0 5.237 1.882 9.164 5.728 11.782 3.682 2.782 8.51 4.091 14.401 4.091Zm64.643 18.328V71.839h27.412v19.965h1.227c2.21-6.955 5.974-12.274 11.292-16.038 5.319-3.763 11.456-5.645 18.329-5.645 1.555 0 3.355.082 5.237.163 1.964.164 3.601.328 4.91.573v25.938c-1.227-.41-3.109-.819-5.646-1.146a58.814 58.814 0 0 0-7.446-.49c-5.155 0-9.738 1.145-13.829 3.354-4.091 2.209-7.282 5.236-9.655 9.164-2.373 3.927-3.519 8.427-3.519 13.5v70.448h-28.312ZM222.077 39.192l-8.019 125.923L137.387 0l84.69 39.192Zm-53.105 162.825-57.933 33.056-57.934-33.056 11.783-28.556h92.301l11.783 28.556ZM111.039 62.675l30.357 73.803H80.681l30.358-73.803ZM7.937 165.115 0 39.192 84.69 0 7.937 165.115Z"
+          />
+        </g>
+        <defs>
+          <radialGradient
+            id="c"
+            cx="0"
+            cy="0"
+            r="1"
+            gradientTransform="rotate(118.122 171.182 60.81) scale(205.794)"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="#FF41F8" />
+            <stop offset=".707" stop-color="#FF41F8" stop-opacity=".5" />
+            <stop offset="1" stop-color="#FF41F8" stop-opacity="0" />
+          </radialGradient>
+          <linearGradient
+            id="b"
+            x1="0"
+            x2="982"
+            y1="192"
+            y2="192"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="#F0060B" />
+            <stop offset="0" stop-color="#F0070C" />
+            <stop offset=".526" stop-color="#CC26D5" />
+            <stop offset="1" stop-color="#7702FF" />
+          </linearGradient>
+          <clipPath id="a"><path fill="#fff" d="M0 0h982v239H0z" /></clipPath>
+        </defs>
+      </svg>
+      <h1>Hello, {{ title }}</h1>
+      <p>Congratulations! Your app is running. 🎉</p>
+    </div>
+    <div class="divider" role="separator" aria-label="Divider"></div>
+    <div class="right-side">
+      <div class="pill-group">
+        @for (item of [
+          { title: 'Explore the Docs', link: 'https://angular.dev' },
+          { title: 'Learn with Tutorials', link: 'https://angular.dev/tutorials' },
+          { title: 'CLI Docs', link: 'https://angular.dev/tools/cli' },
+          { title: 'Angular Language Service', link: 'https://angular.dev/tools/language-service' },
+          { title: 'Angular DevTools', link: 'https://angular.dev/tools/devtools' },
+        ]; track item.title) {
+          <a
+            class="pill"
+            [href]="item.link"
+            target="_blank"
+            rel="noopener"
+          >
+            <span>{{ item.title }}</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="14"
+              viewBox="0 -960 960 960"
+              width="14"
+              fill="currentColor"
+            >
+              <path
+                d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"
+              />
+            </svg>
+          </a>
+        }
+      </div>
+      <div class="social-links">
+        <a
+          href="https://github.com/angular/angular"
+          aria-label="Github"
+          target="_blank"
+          rel="noopener"
+        >
+          <svg
+            width="25"
+            height="24"
+            viewBox="0 0 25 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            alt="Github"
+          >
+            <path
+              d="M12.3047 0C5.50634 0 0 5.50942 0 12.3047C0 17.7423 3.52529 22.3535 8.41332 23.9787C9.02856 24.0946 9.25414 23.7142 9.25414 23.3871C9.25414 23.0949 9.24389 22.3207 9.23876 21.2953C5.81601 22.0377 5.09414 19.6444 5.09414 19.6444C4.53427 18.2243 3.72524 17.8449 3.72524 17.8449C2.61064 17.082 3.81137 17.0973 3.81137 17.0973C5.04697 17.1835 5.69604 18.3647 5.69604 18.3647C6.79321 20.2463 8.57636 19.7029 9.27978 19.3881C9.39052 18.5924 9.70736 18.0499 10.0591 17.7423C7.32641 17.4347 4.45429 16.3765 4.45429 11.6618C4.45429 10.3185 4.9311 9.22133 5.72065 8.36C5.58222 8.04931 5.16694 6.79833 5.82831 5.10337C5.82831 5.10337 6.85883 4.77319 9.2121 6.36459C10.1965 6.09082 11.2424 5.95546 12.2883 5.94931C13.3342 5.95546 14.3801 6.09082 15.3644 6.36459C17.7023 4.77319 18.7328 5.10337 18.7328 5.10337C19.3942 6.79833 18.9789 8.04931 18.8559 8.36C19.6403 9.22133 20.1171 10.3185 20.1171 11.6618C20.1171 16.3888 17.2409 17.4296 14.5031 17.7321C14.9338 18.1012 15.3337 18.8559 15.3337 20.0084C15.3337 21.6552 15.3183 22.978 15.3183 23.3779C15.3183 23.7009 15.5336 24.0854 16.1642 23.9623C21.0871 22.3484 24.6094 17.7341 24.6094 12.3047C24.6094 5.50942 19.0999 0 12.3047 0Z"
+            />
+          </svg>
+        </a>
+        <a
+          href="https://twitter.com/angular"
+          aria-label="Twitter"
+          target="_blank"
+          rel="noopener"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            alt="Twitter"
+          >
+            <path
+              d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+            />
+          </svg>
+        </a>
+        <a
+          href="https://www.youtube.com/channel/UCbn1OgGei-DV7aSRo_HaAiw"
+          aria-label="Youtube"
+          target="_blank"
+          rel="noopener"
+        >
+          <svg
+            width="29"
+            height="20"
+            viewBox="0 0 29 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            alt="Youtube"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M27.4896 1.52422C27.9301 1.96749 28.2463 2.51866 28.4068 3.12258C29.0004 5.35161 29.0004 10 29.0004 10C29.0004 10 29.0004 14.6484 28.4068 16.8774C28.2463 17.4813 27.9301 18.0325 27.4896 18.4758C27.0492 18.9191 26.5 19.2389 25.8972 19.4032C23.6778 20 14.8068 20 14.8068 20C14.8068 20 5.93586 20 3.71651 19.4032C3.11363 19.2389 2.56449 18.9191 2.12405 18.4758C1.68361 18.0325 1.36732 17.4813 1.20683 16.8774C0.613281 14.6484 0.613281 10 0.613281 10C0.613281 10 0.613281 5.35161 1.20683 3.12258C1.36732 2.51866 1.68361 1.96749 2.12405 1.52422C2.56449 1.08095 3.11363 0.76113 3.71651 0.596774C5.93586 0 14.8068 0 14.8068 0C14.8068 0 23.6778 0 25.8972 0.596774C26.5 0.76113 27.0492 1.08095 27.4896 1.52422ZM19.3229 10L11.9036 5.77905V14.221L19.3229 10Z"
+            />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+
+<router-outlet />
+
+
+================================================
+File: src/app/app.component.spec.ts
+================================================
+import { TestBed } from '@angular/core/testing';
+import { AppComponent } from './app.component';
+
+describe('AppComponent', () => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AppComponent],
+    }).compileComponents();
+  });
+
+  it('should create the app', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
+  });
+
+  it(`should have the 'angular-keycloak' title`, () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app.title).toEqual('angular-keycloak');
+  });
+
+  it('should render title', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, angular-keycloak');
+  });
+});
+
+
+================================================
+File: src/app/app.component.ts
+================================================
+import { CommonModule } from '@angular/common';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { KeycloakProfile } from 'keycloak-js';
+import { firstValueFrom } from 'rxjs';
+import { KeycloakDiagnosticComponent } from './keycloak-diagnostic/keycloak-diagnostic.component';
+import { KeycloakWrapperService } from './services/keycloak-wrapper.service';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule, RouterOutlet, KeycloakDiagnosticComponent],
+  template: `
+    <div class="container mx-auto p-4">
+      <header
+        class="flex justify-between items-center mb-6 p-4 bg-white shadow rounded"
+      >
+        <h1 class="text-2xl font-bold">Angular Keycloak Auth</h1>
+
+        <div class="flex items-center">
+          @if (isLoggedIn()) {
+          <span class="mr-4">
+            Welcome {{ userProfile()?.firstName || 'User' }}
+          </span>
+          <button
+            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+            (click)="logout()"
+          >
+            Logout
+          </button>
+          } @else {
+          <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            (click)="login()"
+          >
+            Login
+          </button>
+          }
+        </div>
+      </header>
+
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+      <app-keycloak-diagnostic></app-keycloak-diagnostic>
+    </div>
+  `,
+})
+export class AppComponent implements OnInit {
+  // Use the wrapper service instead of direct KeycloakService
+  private readonly keycloakWrapper = inject(KeycloakWrapperService);
+
+  // Use signals for reactive state management
+  private isLoggedInState = signal<boolean>(false);
+  private userProfileState = signal<KeycloakProfile | null>(null);
+
+  // Expose signals as getters
+  public isLoggedIn = this.isLoggedInState.asReadonly();
+  public userProfile = this.userProfileState.asReadonly();
+
+  public async ngOnInit(): Promise<void> {
+    try {
+      // The wrapper service handles SSR detection internally
+      const isLoggedIn = await firstValueFrom(
+        this.keycloakWrapper.isLoggedIn()
+      );
+      this.isLoggedInState.set(isLoggedIn);
+
+      if (isLoggedIn) {
+        const profile = await firstValueFrom(
+          this.keycloakWrapper.getUserProfile()
+        );
+        this.userProfileState.set(profile);
+      }
+    } catch (error) {
+      console.error('Failed to initialize auth status:', error);
+    }
+  }
+
+  public login(): void {
+    this.keycloakWrapper.login();
+  }
+
+  public logout(): void {
+    this.keycloakWrapper.logout(window.location.origin);
+  }
+}
+
+
+================================================
+File: src/app/app.config.server.ts
+================================================
+import { mergeApplicationConfig, ApplicationConfig } from '@angular/core';
+import { provideServerRendering } from '@angular/platform-server';
+import { provideServerRouting } from '@angular/ssr';
+import { appConfig } from './app.config';
+import { serverRoutes } from './app.routes.server';
+
+const serverConfig: ApplicationConfig = {
+  providers: [
+    provideServerRendering(),
+    provideServerRouting(serverRoutes)
+  ]
+};
+
+export const config = mergeApplicationConfig(appConfig, serverConfig);
+
+
+================================================
+File: src/app/app.config.ts
+================================================
+import { isPlatformBrowser } from '@angular/common';
+import {
+  HttpInterceptorFn,
+  provideHttpClient,
+  withInterceptors,
+} from '@angular/common/http';
+import {
+  APP_INITIALIZER,
+  ApplicationConfig,
+  ErrorHandler,
+  inject,
+  PLATFORM_ID,
+  provideZoneChangeDetection,
+} from '@angular/core';
+import {
+  provideClientHydration,
+  withEventReplay,
+} from '@angular/platform-browser';
+import { provideRouter } from '@angular/router';
+import { KeycloakService } from 'keycloak-angular';
+import { routes } from './app.routes';
+import { KeycloakErrorHandler } from './services/keycloak-error-handler.service';
+import { KeycloakWrapperService } from './services/keycloak-wrapper.service';
+
+// Function to initialize Keycloak
+// keycloak-init.ts
+
+export function initializeKeycloak(
+  keycloak: KeycloakService
+): () => Promise<boolean> {
+  return async (): Promise<boolean> => {
+    // Check if we're in a browser environment
+    const platformId = inject(PLATFORM_ID);
+    if (!isPlatformBrowser(platformId)) {
+      // Skip Keycloak initialization in SSR mode
+      console.log('Skipping Keycloak initialization in server environment');
+      return true;
+    }
+
+    try {
+      console.log('Initializing Keycloak...');
+
+      // Add more detailed logging for initialization
+      const startTime = Date.now();
+
+      // Initialize Keycloak with proper configuration and additional logging
+      const success = await keycloak.init({
+        config: {
+          url: 'http://localhost:8080',
+          realm: 'ofelwin',
+          clientId: 'ofelwin-client-250312',
+        },
+        initOptions: {
+          onLoad: 'check-sso',
+          silentCheckSsoRedirectUri:
+            window.location.origin + '/assets/silent-check-sso.html',
+          checkLoginIframe: false, // Recommended for better performance
+
+          // Add a flow to improve debugging - can be removed in production
+          flow: 'standard', // Alternatives: 'implicit', 'hybrid'
+
+          // Add response mode for better compatibility
+          responseMode: 'fragment',
+        },
+        // Configure bearer token handling
+        enableBearerInterceptor: true,
+        bearerPrefix: 'Bearer',
+        bearerExcludedUrls: ['/assets', '/public', '/debug'],
+      });
+
+      const endTime = Date.now();
+      const initTime = endTime - startTime;
+
+      if (success) {
+        console.log(`Keycloak initialization successful (${initTime}ms)`);
+
+        // Log authentication status
+        const instance = keycloak.getKeycloakInstance();
+        console.log(
+          `Authentication status: ${
+            instance.authenticated ? 'Authenticated' : 'Not authenticated'
+          }`
+        );
+
+        if (instance.authenticated) {
+          // Log token info (without exposing the full token)
+          const tokenExpiry = instance.tokenParsed?.exp
+            ? new Date(instance.tokenParsed.exp * 1000).toISOString()
+            : 'unknown';
+
+          console.log(`Token expires: ${tokenExpiry}`);
+        }
+      } else {
+        console.warn(
+          `Keycloak initialization completed without error but returned false (${initTime}ms)`
+        );
+      }
+
+      return success;
+    } catch (error) {
+      console.error('Error initializing Keycloak:', error);
+
+      // Provide more detailed diagnostics based on error type
+      if (error instanceof Error) {
+        console.error(`Error name: ${error.name}, message: ${error.message}`);
+
+        if (
+          error.name === 'NetworkError' ||
+          error.message.includes('network')
+        ) {
+          console.error(
+            'Network error detected. Please check if Keycloak server is running and accessible.'
+          );
+        } else if (error.message.includes('realm')) {
+          console.error(
+            'Realm error detected. Please verify the realm "ofelwin" exists on the Keycloak server.'
+          );
+        } else if (error.message.includes('client')) {
+          console.error(
+            'Client error detected. Please verify the client "ofelwin-client-250312" is properly configured.'
+          );
+        }
+
+        // Suggest visiting the debug route
+        console.info(
+          'Consider accessing the /debug route to diagnose Keycloak connection issues.'
+        );
+      }
+
+      // Return false to indicate initialization failure
+      return false;
+    }
+  };
+}
+
+// Custom HTTP interceptor that safely handles Keycloak authentication
+const keycloakInterceptor: HttpInterceptorFn = (req, next) => {
+  const platformId = inject(PLATFORM_ID);
+
+  // Skip in server environment
+  if (!isPlatformBrowser(platformId)) {
+    return next(req);
+  }
+
+  try {
+    // Get the KeycloakService instance
+    const keycloakService = inject(KeycloakService);
+
+    // Safely check if Keycloak is initialized
+    if (!keycloakService || !keycloakService.getKeycloakInstance) {
+      return next(req);
+    }
+
+    // Check if the Keycloak instance is initialized and authenticated
+    const keycloakInstance = keycloakService.getKeycloakInstance();
+
+    if (keycloakInstance && keycloakInstance.authenticated) {
+      // Get the token
+      const token = keycloakInstance.token;
+
+      if (token) {
+        // Clone the request and add the Authorization header
+        const authReq = req.clone({
+          headers: req.headers.set('Authorization', `Bearer ${token}`),
+        });
+        return next(authReq);
+      }
+    }
+
+    // If not authenticated or no token, proceed with original request
+    return next(req);
+  } catch (error) {
+    console.error('Error in Keycloak interceptor:', error);
+    return next(req);
+  }
+};
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+    provideClientHydration(withEventReplay()),
+
+    // Provide Keycloak service
+    KeycloakService,
+
+    // Provide our wrapper service
+    KeycloakWrapperService,
+
+    // Configure HTTP client with custom interceptor
+    provideHttpClient(withInterceptors([keycloakInterceptor])),
+
+    // Initialize Keycloak
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeKeycloak,
+      multi: true,
+      deps: [KeycloakService],
+    },
+
+    // Custom error handler for better Keycloak error messages
+    {
+      provide: ErrorHandler,
+      useClass: KeycloakErrorHandler,
+    },
+  ],
+};
+
+
+================================================
+File: src/app/app.routes.server.ts
+================================================
+import { RenderMode, ServerRoute } from '@angular/ssr';
+
+export const serverRoutes: ServerRoute[] = [
+  {
+    path: '**',
+    renderMode: RenderMode.Prerender
+  }
+];
+
+
+================================================
+File: src/app/app.routes.ts
+================================================
+// app.routes.ts
+import { Routes } from '@angular/router';
+import { AuthGuard } from './auth/auth.guard';
+import { HomeComponent } from './home/home.component';
+
+export const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'profile',
+    component: HomeComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['user', 'admin'],
+    },
+  },
+  {
+    path: 'debug',
+    loadComponent: () =>
+      import('./keycloak-diagnostic/keycloak-diagnostic.component').then(
+        (c) => c.KeycloakDiagnosticComponent
+      ),
+  },
+  {
+    path: 'unauthorized',
+    loadComponent: () =>
+      import('./unauthorized/unauthorized.component').then(
+        (c) => c.UnauthorizedComponent
+      ),
+  },
+  {
+    path: '**',
+    redirectTo: '',
+  },
+];
+
+
+================================================
+File: src/app/auth/auth.guard.ts
+================================================
+import { Injectable, inject } from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  Router,
+  RouterStateSnapshot,
+  UrlTree,
+} from '@angular/router';
+import { firstValueFrom } from 'rxjs';
+import { KeycloakWrapperService } from '../services/keycloak-wrapper.service';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AuthGuard {
+  private router = inject(Router);
+  private keycloakWrapper = inject(KeycloakWrapperService);
+
+  async canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Promise<boolean | UrlTree> {
+    // Check if user is authenticated - wrapper handles SSR safely
+    const authenticated = await this.keycloakWrapper.isLoggedIn();
+
+    if (!authenticated) {
+      // Try to login if not authenticated in browser context
+      try {
+        await this.keycloakWrapper.login({
+          redirectUri: window.location.origin + state.url,
+        });
+      } catch (error) {
+        // Login might not be possible in SSR, just navigate to unauthorized
+        return this.router.parseUrl('/unauthorized');
+      }
+      return false;
+    }
+
+    // Check if specific roles are required for the route
+    const requiredRoles = route.data['roles'] as string[] | undefined;
+
+    if (requiredRoles && requiredRoles.length > 0) {
+      // Get user roles - wrapper handles SSR safely
+      const userRoles = await this.keycloakWrapper.getUserRoles();
+
+      // Convert to lowercase for case-insensitive comparison
+      const lowercaseUserRoles = (await firstValueFrom(userRoles)).map(
+        (role: string) => role.toLowerCase()
+      );
+      const lowercaseRequiredRoles = requiredRoles.map((role) =>
+        role.toLowerCase()
+      );
+
+      // Check if user has any of the required roles
+      const hasRole = lowercaseRequiredRoles.some((role) =>
+        lowercaseUserRoles.includes(role)
+      );
+
+      if (!hasRole) {
+        // Redirect to unauthorized page if user doesn't have required roles
+        return this.router.parseUrl('/unauthorized');
+      }
+    }
+
+    // User is authenticated and has required roles (if any)
+    return true;
+  }
+}
+
+
+================================================
+File: src/app/auth/keycloak-init.ts
+================================================
+import { KeycloakService } from 'keycloak-angular';
+
+export function initializeKeycloak(
+  keycloak: KeycloakService
+): () => Promise<boolean> {
+  return async (): Promise<boolean> => {
+    // Check if we're in a browser environment
+    if (typeof window === 'undefined') {
+      // Skip Keycloak initialization in SSR mode
+      console.log('Skipping Keycloak initialization in server environment');
+      return true;
+    }
+
+    try {
+      // Initialize Keycloak with proper configuration
+      return await keycloak.init({
+        config: {
+          url: 'http://localhost:8080',
+          realm: 'ofelwin',
+          clientId: 'ofelwin-client-250312',
+        },
+        initOptions: {
+          onLoad: 'check-sso',
+          silentCheckSsoRedirectUri:
+            window.location.origin + '/assets/silent-check-sso.html',
+          checkLoginIframe: false, // Recommended for better performance
+        },
+        // Configure bearer token handling
+        enableBearerInterceptor: true,
+        bearerPrefix: 'Bearer',
+        bearerExcludedUrls: ['/assets', '/public'],
+      });
+    } catch (error) {
+      console.error('Error initializing Keycloak:', error);
+      return false;
+    }
+  };
+}
+
+
+================================================
+File: src/app/home/home.component.html
+================================================
+<p>home works!</p>
+
+
+================================================
+File: src/app/home/home.component.spec.ts
+================================================
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { HomeComponent } from './home.component';
+
+describe('HomeComponent', () => {
+  let component: HomeComponent;
+  let fixture: ComponentFixture<HomeComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [HomeComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(HomeComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+
+================================================
+File: src/app/home/home.component.ts
+================================================
+import { CommonModule } from '@angular/common';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { KeycloakProfile } from 'keycloak-js';
+import { firstValueFrom } from 'rxjs';
+import { KeycloakWrapperService } from '../services/keycloak-wrapper.service';
+
+@Component({
+  selector: 'app-home',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div class="p-6 max-w-md mx-auto bg-white rounded-xl shadow-md">
+      <h2 class="text-xl font-medium text-black mb-4">
+        Welcome to Your Dashboard
+      </h2>
+
+      @if (loading()) {
+      <div class="p-4 text-blue-800 bg-blue-100 rounded">
+        Loading user profile...
+      </div>
+      } @else if (error()) {
+      <div class="p-4 text-red-800 bg-red-100 rounded">
+        {{ error() }}
+        <button
+          class="ml-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+          (click)="retry()"
+        >
+          Retry
+        </button>
+      </div>
+      } @else if (userProfile()) {
+      <div class="space-y-3">
+        <h3 class="text-lg font-medium text-gray-900">User Profile</h3>
+
+        <div class="flex flex-col space-y-2">
+          <div class="flex">
+            <span class="font-medium w-28">Username:</span>
+            <span>{{ userProfile()?.username }}</span>
+          </div>
+
+          <div class="flex">
+            <span class="font-medium w-28">Email:</span>
+            <span>{{ userProfile()?.email }}</span>
+          </div>
+
+          <div class="flex">
+            <span class="font-medium w-28">First Name:</span>
+            <span>{{ userProfile()?.firstName }}</span>
+          </div>
+
+          <div class="flex">
+            <span class="font-medium w-28">Last Name:</span>
+            <span>{{ userProfile()?.lastName }}</span>
+          </div>
+
+          @if (userProfile()?.emailVerified) {
+          <div class="mt-2 text-sm text-green-600">Email verified</div>
+          } @else {
+          <div class="mt-2 text-sm text-red-600">Email not verified</div>
+          }
+        </div>
+
+        @if (realmRoles().length > 0) {
+        <div class="mt-4">
+          <h4 class="text-md font-medium text-gray-900">Your Roles</h4>
+          <ul class="list-disc pl-5 mt-2">
+            @for (role of realmRoles(); track role) {
+            <li>{{ role }}</li>
+            }
+          </ul>
+        </div>
+        }
+      </div>
+      } @else {
+      <div class="p-4 text-amber-800 bg-amber-100 rounded">
+        No user profile available. Please log in.
+      </div>
+      }
+    </div>
+  `,
+})
+export class HomeComponent implements OnInit {
+  private keycloakWrapper = inject(KeycloakWrapperService);
+
+  // State management with signals
+  userProfile = signal<KeycloakProfile | null>(null);
+  realmRoles = signal<string[]>([]);
+  loading = signal<boolean>(true);
+  error = signal<string | null>(null);
+
+  ngOnInit(): void {
+    this.loadUserData();
+  }
+
+  async loadUserData(): Promise<void> {
+    try {
+      this.loading.set(true);
+      this.error.set(null);
+
+      // The wrapper service safely handles SSR conditions
+      const isLoggedIn = await this.keycloakWrapper.isLoggedIn();
+
+      if (isLoggedIn) {
+        const profile = await firstValueFrom(
+          this.keycloakWrapper.getUserProfile()
+        );
+        this.userProfile.set(profile);
+
+        const roles = await firstValueFrom(this.keycloakWrapper.getUserRoles());
+        this.realmRoles.set(roles);
+      } else {
+        // Not an error, just no user is logged in
+        this.userProfile.set(null);
+        this.realmRoles.set([]);
+      }
+    } catch (err) {
+      console.error('Error loading user data:', err);
+      this.error.set('Failed to load user data. Please try again later.');
+    } finally {
+      this.loading.set(false);
+    }
+  }
+
+  retry(): void {
+    this.loadUserData();
+  }
+}
+
+
+================================================
+File: src/app/keycloak-diagnostic/keycloak-diagnostic.component.html
+================================================
+template: `
+<div class="p-6 max-w-4xl mx-auto bg-white rounded-xl shadow-lg">
+  <h2 class="text-2xl font-bold text-gray-900 mb-6">
+    Keycloak Connection Troubleshooter
+  </h2>
+
+  <!-- Fix Actions -->
+  <div class="mb-8 p-4 border rounded-md bg-blue-50">
+    <h3 class="text-lg font-semibold text-blue-800 mb-2">Quick Fix Actions</h3>
+    <div class="flex flex-wrap gap-2">
+      <button
+        class="px-3 py-1.5 bg-blue-600 text-white font-medium rounded hover:bg-blue-700"
+        (click)="fixSilentCheckSso()"
+        [disabled]="ssoFixInProgress()"
+      >
+        @if (ssoFixInProgress()) {
+        <span>Fixing SSO File...</span>
+        } @else {
+        <span>Fix Silent-Check-SSO</span>
+        }
+      </button>
+
+      <button
+        class="px-3 py-1.5 bg-green-600 text-white font-medium rounded hover:bg-green-700"
+        (click)="runAllTests()"
+      >
+        Run All Tests
+      </button>
+
+      <button
+        class="px-3 py-1.5 bg-purple-600 text-white font-medium rounded hover:bg-purple-700"
+        (click)="clearCache()"
+      >
+        Clear Browser Cache
+      </button>
+    </div>
+
+    @if (lastFixMessage()) {
+    <div class="mt-3 p-2 rounded bg-gray-100 text-sm">
+      {{ lastFixMessage() }}
+    </div>
+    }
+  </div>
+
+  <!-- Connection Status -->
+  <div class="mb-6 p-4 border rounded-md">
+    <h3 class="font-medium text-lg mb-2">Current Connection Status</h3>
+    <div
+      class="p-3 rounded-md text-sm"
+      [ngClass]="{
+        'bg-green-100 text-green-800': isAuthenticated(),
+        'bg-yellow-100 text-yellow-800': !isAuthenticated()
+      }"
+    >
+      <div class="grid grid-cols-2 gap-2">
+        <div class="font-medium">Connected:</div>
+        <div>{{ isConnected() ? "✓" : "✗" }}</div>
+
+        <div class="font-medium">Initialized:</div>
+        <div>{{ isInitialized() ? "✓" : "✗" }}</div>
+
+        <div class="font-medium">Authenticated:</div>
+        <div>{{ isAuthenticated() ? "✓" : "✗" }}</div>
+
+        @if (tokenExpiry()) {
+        <div class="font-medium">Token Expires:</div>
+        <div>{{ tokenExpiry() }}</div>
+        }
+      </div>
+
+      @if (connectionError()) {
+      <div class="mt-3 p-2 bg-red-50 text-red-700 rounded">
+        Error: {{ connectionError() }}
+      </div>
+      }
+    </div>
+  </div>
+
+  <!-- Server Tests -->
+  <div class="mb-6">
+    <h3 class="font-medium text-lg mb-2">Keycloak Server Tests</h3>
+    <div class="space-y-3">
+      @for (test of serverTests(); track test.url) {
+      <div class="p-3 border rounded-md">
+        <div class="flex justify-between items-center">
+          <div>
+            <span class="font-medium">{{ test.description }}</span>
+            <div class="text-xs text-gray-500">{{ test.url }}</div>
+          </div>
+          <div class="flex items-center">
+            @if (test.status === 'pending') {
+            <div class="text-blue-600">Testing...</div>
+            } @else if (test.status === 'success') {
+            <div class="text-green-600">✓ Success</div>
+            } @else if (test.status === 'error') {
+            <div class="text-red-600">✗ Failed</div>
+            } @else {
+            <div class="text-gray-400">Not Tested</div>
+            }
+            <button
+              class="ml-2 p-1 text-sm bg-gray-100 hover:bg-gray-200 rounded"
+              (click)="runServerTest(test)"
+            >
+              Test
+            </button>
+          </div>
+        </div>
+
+        @if (test.status === 'error' && test.errorMessage) {
+        <div class="mt-2 p-2 bg-red-50 text-sm text-red-700 rounded-md">
+          {{ test.errorMessage }}
+        </div>
+        } @if (test.status === 'success' && test.responseData) {
+        <details class="mt-2">
+          <summary class="text-sm text-blue-600 cursor-pointer">
+            Show Response Data
+          </summary>
+          <pre
+            class="mt-1 p-2 bg-gray-50 text-xs overflow-auto max-h-40 rounded"
+            >{{ test.responseData | json }}</pre
+          >
+        </details>
+        }
+      </div>
+      }
+    </div>
+  </div>
+
+  <!-- File Checks -->
+  <div class="mb-6">
+    <h3 class="font-medium text-lg mb-2">Critical Files Check</h3>
+    <div class="space-y-3">
+      @for (file of fileChecks(); track file.path) {
+      <div class="p-3 border rounded-md">
+        <div class="flex justify-between items-center">
+          <div>
+            <span class="font-medium">{{ file.path }}</span>
+          </div>
+          <div class="flex items-center">
+            @if (file.status === 'pending') {
+            <div class="text-blue-600">Checking...</div>
+            } @else if (file.status === 'success') {
+            <div class="text-green-600">✓ Found</div>
+            } @else if (file.status === 'error') {
+            <div class="text-red-600">✗ Missing</div>
+            } @else {
+            <div class="text-gray-400">Not Checked</div>
+            }
+            <button
+              class="ml-2 p-1 text-sm bg-gray-100 hover:bg-gray-200 rounded"
+              (click)="checkFile(file)"
+            >
+              Check
+            </button>
+          </div>
+        </div>
+
+        @if (file.status === 'error' && file.errorMessage) {
+        <div class="mt-2 p-2 bg-red-50 text-sm text-red-700 rounded-md">
+          {{ file.errorMessage }}
+        </div>
+        }
+      </div>
+      }
+    </div>
+  </div>
+
+  <!-- Logging Configuration -->
+  <div class="mb-6">
+    <h3 class="font-medium text-lg mb-2">Enable Verbose Logging</h3>
+    <div class="p-3 border rounded-md">
+      <div class="flex items-center">
+        <button
+          class="px-3 py-1.5 bg-gray-600 text-white font-medium rounded hover:bg-gray-700"
+          (click)="toggleVerboseLogging()"
+        >
+          {{
+            verboseLogging()
+              ? "Disable Verbose Logging"
+              : "Enable Verbose Logging"
+          }}
+        </button>
+        <span class="ml-3 text-sm text-gray-600">
+          {{
+            verboseLogging()
+              ? "Verbose logging is enabled"
+              : "Enable for detailed Keycloak logs"
+          }}
+        </span>
+      </div>
+
+      @if (verboseLogging()) {
+      <div class="mt-3 text-sm text-gray-700">
+        <p>Check browser console (F12) for detailed Keycloak logs.</p>
+        <p class="mt-1">Look for <code>keycloak-js</code> related messages.</p>
+      </div>
+      }
+    </div>
+  </div>
+
+  <!-- Recommendations -->
+  <div class="mt-8 p-4 bg-yellow-50 rounded-md">
+    <h3 class="font-semibold text-lg text-yellow-800 mb-2">
+      Troubleshooting Recommendations
+    </h3>
+    <ul class="list-disc ml-6 text-sm space-y-2 text-yellow-800">
+      <li>
+        Ensure Keycloak server is running and accessible at
+        <code>http://localhost:8080</code>
+      </li>
+      <li>
+        Verify the realm <code>ofelwin</code> exists on the Keycloak server
+      </li>
+      <li>
+        Check that client <code>ofelwin-client-250312</code> is configured
+        correctly
+      </li>
+      <li>
+        Confirm <code>silent-check-sso.html</code> is accessible at
+        <code>/assets/silent-check-sso.html</code>
+      </li>
+      <li>
+        Verify CORS settings in Keycloak allow requests from your application
+        origin
+      </li>
+      <li>
+        Check network tab in browser developer tools for CORS or network errors
+      </li>
+      <li>
+        Clear browser cache and cookies if authentication state is inconsistent
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+================================================
+File: src/app/keycloak-diagnostic/keycloak-diagnostic.component.spec.ts
+================================================
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { KeycloakDiagnosticComponent } from './keycloak-diagnostic.component';
+
+describe('KeycloakDiagnosticComponent', () => {
+  let component: KeycloakDiagnosticComponent;
+  let fixture: ComponentFixture<KeycloakDiagnosticComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [KeycloakDiagnosticComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(KeycloakDiagnosticComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+
+================================================
+File: src/app/keycloak-diagnostic/keycloak-diagnostic.component.ts
+================================================
+// keycloak-diagnostic.component.ts
+import { CommonModule } from '@angular/common';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Component, effect, inject, OnInit, signal } from '@angular/core';
+import { catchError, of, tap } from 'rxjs';
+import { KeycloakWrapperService } from '../services/keycloak-wrapper.service';
+interface ServerTest {
+  url: string;
+  description: string;
+  status: 'pending' | 'success' | 'error' | 'not-started';
+  errorMessage?: string;
+  responseData?: any;
+}
+
+interface FileCheck {
+  path: string;
+  status: 'pending' | 'success' | 'error' | 'not-started';
+  errorMessage?: string;
+}
+@Component({
+  selector: 'app-keycloak-diagnostic',
+  standalone: true,
+  imports: [CommonModule, HttpClientModule],
+  templateUrl: './keycloak-diagnostic.component.html',
+})
+export class KeycloakDiagnosticComponent implements OnInit {
+  private http = inject(HttpClient);
+  private keycloakWrapper = inject(KeycloakWrapperService);
+
+  // Connection status signals
+  private isConnectedState = signal<boolean>(false);
+  private isInitializedState = signal<boolean>(false);
+  private isAuthenticatedState = signal<boolean>(false);
+  private connectionErrorState = signal<string | null>(null);
+  private tokenExpiryState = signal<string | null>(null);
+  constructor() {
+    effect(() => {
+      this.updateConnectionStatus();
+
+      if (this.verboseLogging()) {
+        console.log('Setting up Keycloak debug monitoring');
+
+        // Setup monitoring interval
+        const intervalId = setInterval(() => {
+          this.updateConnectionStatus();
+        }, 5000);
+
+        // Cleanup when disabled
+        return () => {
+          console.log('Disabling Keycloak debug monitoring');
+          clearInterval(intervalId);
+        };
+      }
+      // Return cleanup function even when verbose logging is disabled
+      return () => {};
+    });
+  }
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
+  // Server tests signals
+  private serverTestsState = signal<ServerTest[]>([
+    {
+      url: 'http://localhost:8080/realms/ofelwin/.well-known/openid-configuration',
+      description: 'Realm Configuration',
+      status: 'not-started',
+    },
+    {
+      url: 'http://localhost:8080/realms/ofelwin/protocol/openid-connect/auth',
+      description: 'Authentication Endpoint',
+      status: 'not-started',
+    },
+    {
+      url: 'http://localhost:8080/admin/master/console/',
+      description: 'Keycloak Admin Console',
+      status: 'not-started',
+    },
+  ]);
+
+  // File checks signals
+  private fileChecksState = signal<FileCheck[]>([
+    {
+      path: '/assets/silent-check-sso.html',
+      status: 'not-started',
+    },
+  ]);
+
+  // Fix action signals
+  private ssoFixInProgressState = signal<boolean>(false);
+  private lastFixMessageState = signal<string | null>(null);
+
+  // Logging signals
+  private verboseLoggingState = signal<boolean>(false);
+
+  // Public readonly signals
+  isConnected = this.isConnectedState.asReadonly();
+  isInitialized = this.isInitializedState.asReadonly();
+  isAuthenticated = this.isAuthenticatedState.asReadonly();
+  connectionError = this.connectionErrorState.asReadonly();
+  tokenExpiry = this.tokenExpiryState.asReadonly();
+  serverTests = this.serverTestsState.asReadonly();
+  fileChecks = this.fileChecksState.asReadonly();
+  ssoFixInProgress = this.ssoFixInProgressState.asReadonly();
+  lastFixMessage = this.lastFixMessageState.asReadonly();
+  verboseLogging = this.verboseLoggingState.asReadonly();
+
+  updateConnectionStatus(): void {
+    this.keycloakWrapper.connectionStatus$.subscribe((status) => {
+      this.isConnectedState.set(status.connected);
+      this.isInitializedState.set(status.initialized);
+      this.isAuthenticatedState.set(status.authenticated);
+      this.connectionErrorState.set(status.error || null);
+
+      if (status.tokenExpiresIn) {
+        const expiresDate = new Date(Date.now() + status.tokenExpiresIn * 1000);
+        this.tokenExpiryState.set(expiresDate.toLocaleString());
+      } else {
+        this.tokenExpiryState.set(null);
+      }
+    });
+  }
+
+  runServerTest(test: ServerTest): void {
+    // Update test status to pending
+    this.updateServerTestStatus(test.url, {
+      status: 'pending',
+    });
+
+    // Make the HTTP request to test the endpoint
+    this.http
+      .get(test.url, { observe: 'response' })
+      .pipe(
+        tap((response) => {
+          this.updateServerTestStatus(test.url, {
+            status: 'success',
+            responseData: response.body,
+          });
+        }),
+        catchError((error) => {
+          this.updateServerTestStatus(test.url, {
+            status: 'error',
+            errorMessage: this.formatError(error),
+          });
+          return of(null);
+        })
+      )
+      .subscribe();
+  }
+
+  private updateServerTestStatus(
+    url: string,
+    updates: Partial<ServerTest>
+  ): void {
+    this.serverTestsState.update((tests) =>
+      tests.map((test) => (test.url === url ? { ...test, ...updates } : test))
+    );
+  }
+
+  checkFile(file: FileCheck): void {
+    // Update file check status to pending
+    this.updateFileCheckStatus(file.path, {
+      status: 'pending',
+    });
+
+    // Try to fetch the file to see if it exists
+    this.http
+      .get(file.path, { responseType: 'text' })
+      .pipe(
+        tap(() => {
+          this.updateFileCheckStatus(file.path, {
+            status: 'success',
+          });
+        }),
+        catchError((error) => {
+          this.updateFileCheckStatus(file.path, {
+            status: 'error',
+            errorMessage: this.formatError(error),
+          });
+          return of(null);
+        })
+      )
+      .subscribe();
+  }
+
+  private updateFileCheckStatus(
+    path: string,
+    updates: Partial<FileCheck>
+  ): void {
+    this.fileChecksState.update((files) =>
+      files.map((file) => (file.path === path ? { ...file, ...updates } : file))
+    );
+  }
+
+  runAllTests(): void {
+    // Run all server tests
+    this.serverTestsState().forEach((test) => {
+      this.runServerTest(test);
+    });
+
+    // Run all file checks
+    this.fileChecksState().forEach((file) => {
+      this.checkFile(file);
+    });
+
+    // Update connection status
+    this.updateConnectionStatus();
+  }
+
+  fixSilentCheckSso(): void {
+    this.ssoFixInProgressState.set(true);
+    this.lastFixMessageState.set('Creating silent-check-sso.html file...');
+
+    // Create a blob with the silent-check-sso.html content
+    const silentCheckSsoContent = `<html>
+  <body>
+    <script>
+      parent.postMessage(location.href, location.origin);
+    </script>
+  </body>
+</html>`;
+
+    const blob = new Blob([silentCheckSsoContent], { type: 'text/html' });
+    const fileUrl = URL.createObjectURL(blob);
+
+    // Create a download link for the user to save the file
+    const downloadLink = document.createElement('a');
+    downloadLink.href = fileUrl;
+    downloadLink.download = 'silent-check-sso.html';
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+
+    // Clean up
+    URL.revokeObjectURL(fileUrl);
+
+    this.lastFixMessageState.set(
+      'File downloaded. Please place it in your assets folder at "src/assets/silent-check-sso.html" ' +
+        "and rebuild your app. If you're using a dev server, restart it."
+    );
+    this.ssoFixInProgressState.set(false);
+
+    // Re-check the file after a short delay
+    setTimeout(() => {
+      this.checkFile(this.fileChecksState()[0]);
+    }, 5000);
+  }
+
+  clearCache(): void {
+    // We can't programmatically clear the entire browser cache,
+    // but we can clear localStorage and sessionStorage
+    localStorage.clear();
+    sessionStorage.clear();
+
+    this.lastFixMessageState.set(
+      'Browser storage cleared. For a complete reset, manually clear cookies and cache ' +
+        'in your browser settings, then reload the page.'
+    );
+  }
+
+  toggleVerboseLogging(): void {
+    this.verboseLoggingState.update((current) => !current);
+
+    if (this.verboseLoggingState()) {
+      // Enable verbose logging
+      console.info('Enabling verbose Keycloak logging');
+      const keycloakInstance = this.keycloakWrapper.getKeycloakInstance();
+
+      if (keycloakInstance) {
+        // @ts-ignore - enableLogging might not be in the type definitions
+        if (typeof keycloakInstance.enableLogging === 'function') {
+          // @ts-ignore
+          keycloakInstance.enableLogging(true);
+        }
+
+        console.info('Current Keycloak state:', {
+          authenticated: keycloakInstance.authenticated,
+          token: keycloakInstance.token ? 'Present (hidden)' : 'None',
+          refreshToken: keycloakInstance.refreshToken
+            ? 'Present (hidden)'
+            : 'None',
+          subject: keycloakInstance.subject || 'None',
+          responseMode: keycloakInstance.responseMode || 'None',
+          flow: keycloakInstance.flow || 'None',
+        });
+      } else {
+        console.warn('Keycloak instance not available');
+      }
+    } else {
+      // Disable verbose logging
+      const keycloakInstance = this.keycloakWrapper.getKeycloakInstance();
+
+      if (keycloakInstance) {
+        // @ts-ignore - enableLogging might not be in the type definitions
+        if (typeof keycloakInstance.enableLogging === 'function') {
+          // @ts-ignore
+          keycloakInstance.enableLogging(false);
+        }
+      }
+    }
+  }
+
+  private formatError(error: any): string {
+    if (!error) return 'Unknown error';
+
+    const parts = [];
+
+    if (error.status) {
+      parts.push(`Status: ${error.status} ${error.statusText || ''}`);
+    }
+
+    if (error.message) {
+      parts.push(`Message: ${error.message}`);
+    }
+
+    if (error.url) {
+      parts.push(`URL: ${error.url}`);
+    }
+
+    // For CORS errors
+    if (error.name === 'HttpErrorResponse' && error.message.includes('CORS')) {
+      parts.push(
+        'CORS Error: The server is not allowing cross-origin requests from your application'
+      );
+    }
+
+    return parts.join('\n');
+  }
+}
+
+
+================================================
+File: src/app/services/keycloak-error-handler.service.spec.ts
+================================================
+import { TestBed } from '@angular/core/testing';
+
+import { KeycloakErrorHandlerService } from './keycloak-error-handler.service';
+
+describe('KeycloakErrorHandlerService', () => {
+  let service: KeycloakErrorHandlerService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(KeycloakErrorHandlerService);
+  });
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+});
+
+
+================================================
+File: src/app/services/keycloak-error-handler.service.ts
+================================================
+import { isPlatformBrowser } from '@angular/common';
+import { ErrorHandler, Inject, Injectable, PLATFORM_ID } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class KeycloakErrorHandler implements ErrorHandler {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
+  handleError(error: any): void {
+    // Handle the error differently based on environment
+    if (isPlatformBrowser(this.platformId)) {
+      this.handleBrowserError(error);
+    } else {
+      this.handleServerError(error);
+    }
+  }
+
+  private handleBrowserError(error: any): void {
+    // Check if it's a Keycloak-related error
+    if (this.isKeycloakError(error)) {
+      console.group('Keycloak Authentication Error');
+      console.error(
+        'An error occurred with Keycloak authentication:',
+        error.message
+      );
+
+      if (error.stack) {
+        console.debug('Error stack:', error.stack);
+      }
+
+      // Additional context for debugging
+      console.info('Suggestions:');
+      console.info(
+        '- Verify Keycloak server is running at http://localhost:8080'
+      );
+      console.info('- Check realm and client configuration');
+      console.info('- Ensure silent-check-sso.html is properly deployed');
+      console.groupEnd();
+    } else {
+      // For non-Keycloak errors, use default handling
+      console.error('Application error:', error);
+    }
+  }
+
+  private handleServerError(error: any): void {
+    // In SSR mode, reduce verbosity for Keycloak errors since they're expected
+    if (this.isKeycloakError(error)) {
+      console.error(
+        'Keycloak error during SSR (expected, will be resolved on client):',
+        error.message || 'Unknown Keycloak error'
+      );
+    } else {
+      console.error('Server-side error:', error);
+    }
+  }
+
+  private isKeycloakError(error: any): boolean {
+    if (!error) return false;
+
+    // Check error message for Keycloak-related keywords
+    const errorString = JSON.stringify(error).toLowerCase();
+    const keycloakKeywords = [
+      'keycloak',
+      'authentication',
+      'authorize',
+      'token',
+      'login',
+      'sso',
+      'resource access',
+      'unauthorized',
+      'forbidden',
+      'authenticated',
+    ];
+
+    return keycloakKeywords.some((keyword) => errorString.includes(keyword));
+  }
+}
+
+
+================================================
+File: src/app/services/keycloak-wrapper.service.spec.ts
+================================================
+import { TestBed } from '@angular/core/testing';
+
+import { KeycloakWrapperService } from './keycloak-wrapper.service';
+
+describe('KeycloakWrapperService', () => {
+  let service: KeycloakWrapperService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(KeycloakWrapperService);
+  });
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+});
+
+
+================================================
+File: src/app/services/keycloak-wrapper.service.ts
+================================================
+// improved-keycloak-wrapper.service.ts
+import { isPlatformBrowser } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { KeycloakService } from 'keycloak-angular';
+import { KeycloakInstance, KeycloakProfile } from 'keycloak-js';
+import { BehaviorSubject, Observable, from, of } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
+
+export interface KeycloakConnectionStatus {
+  connected: boolean;
+  initialized: boolean;
+  authenticated: boolean;
+  error?: string;
+  token?: string;
+  tokenExpiresIn?: number;
+}
+
+export interface KeycloakConfig {
+  url: string;
+  realm: string;
+  clientId: string;
+}
+
+@Injectable({
+  providedIn: 'root',
+})
+export class KeycloakWrapperService {
+  private status = new BehaviorSubject<KeycloakConnectionStatus>({
+    connected: false,
+    initialized: false,
+    authenticated: false,
+  });
+
+  public readonly connectionStatus$ = this.status.asObservable();
+
+  // Default Keycloak configuration
+  private config: KeycloakConfig = {
+    url: 'http://localhost:8080',
+    realm: 'ofelwin',
+    clientId: 'ofelwin-client-250312',
+  };
+
+  constructor(
+    private keycloak: KeycloakService,
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    // Update status periodically if in browser
+    if (this.isBrowser()) {
+      setInterval(() => this.updateStatus(), 30000);
+    }
+  }
+
+  /**
+   * Check if application is running in browser environment
+   */
+  private isBrowser(): boolean {
+    return isPlatformBrowser(this.platformId);
+  }
+
+  /**
+   * Updates the current status of the Keycloak connection
+   */
+  updateStatus(): void {
+    if (!this.isBrowser()) {
+      this.status.next({
+        connected: false,
+        initialized: false,
+        authenticated: false,
+        error: 'Server-side rendering - Keycloak not available',
+      });
+      return;
+    }
+
+    try {
+      const instance = this.keycloak.getKeycloakInstance();
+
+      if (!instance) {
+        this.status.next({
+          connected: false,
+          initialized: false,
+          authenticated: false,
+          error: 'Keycloak instance not created',
+        });
+        return;
+      }
+
+      // Check initialization and authentication
+      const initialized = !!instance.authenticated;
+      const authenticated = !!instance.authenticated;
+
+      // Get token information if authenticated
+      let token: string | undefined;
+      let tokenExpiresIn: number | undefined;
+
+      if (authenticated && instance.token) {
+        token = instance.token;
+        tokenExpiresIn = instance.tokenParsed?.exp
+          ? instance.tokenParsed.exp - Math.floor(Date.now() / 1000)
+          : undefined;
+      }
+
+      this.status.next({
+        connected: true,
+        initialized,
+        authenticated,
+        token,
+        tokenExpiresIn,
+      });
+    } catch (error) {
+      console.error('Error checking Keycloak status:', error);
+      this.status.next({
+        connected: false,
+        initialized: false,
+        authenticated: false,
+        error: error instanceof Error ? error.message : String(error),
+      });
+    }
+  }
+
+  /**
+   * Test the connection to Keycloak server
+   * Returns diagnostic information
+   */
+  testConnection(): Observable<any> {
+    if (!this.isBrowser()) {
+      return of({
+        success: false,
+        error: 'Server-side rendering - cannot test connection',
+      });
+    }
+
+    // Try to fetch the OpenID configuration
+    return this.http
+      .get(
+        `${this.config.url}/realms/${this.config.realm}/.well-known/openid-configuration`
+      )
+      .pipe(
+        map((response) => ({ success: true, data: response })),
+        catchError((error) =>
+          of({
+            success: false,
+            error: error.message || 'Failed to connect to Keycloak server',
+            status: error.status,
+            statusText: error.statusText,
+          })
+        )
+      );
+  }
+
+  /**
+   * Safely check if the user is logged in
+   * Returns false in server-side rendering
+   */
+  isLoggedIn(): Observable<boolean> {
+    if (!this.isBrowser()) {
+      return of(false);
+    }
+
+    return from(Promise.resolve(this.keycloak.isLoggedIn())).pipe(
+      catchError((error) => {
+        console.error('Error checking login status:', error);
+        return of(false);
+      })
+    );
+  }
+
+  /**
+   * Safely get user profile
+   * Returns null in server-side rendering or if errors occur
+   */
+  getUserProfile(): Observable<KeycloakProfile | null> {
+    if (!this.isBrowser()) {
+      return of(null);
+    }
+
+    return this.isLoggedIn().pipe(
+      switchMap((isLoggedIn: boolean) => {
+        if (!isLoggedIn) {
+          return of(null);
+        }
+        return from(this.keycloak.loadUserProfile()).pipe(
+          catchError((error) => {
+            console.error('Error loading user profile:', error);
+            return of(null);
+          })
+        );
+      }),
+      catchError((error) => {
+        console.error('Error in getUserProfile:', error);
+        return of(null);
+      })
+    );
+  }
+
+  /**
+   * Safely get user roles
+   * Returns empty array in server-side rendering or if errors occur
+   */
+  getUserRoles(allRoles: boolean = true): Observable<string[]> {
+    if (!this.isBrowser()) {
+      return of([]);
+    }
+
+    return this.isLoggedIn().pipe(
+      map((isLoggedIn) => {
+        if (!isLoggedIn) {
+          return [];
+        }
+
+        try {
+          return this.keycloak.getUserRoles(allRoles);
+        } catch (error) {
+          console.error('Error getting user roles:', error);
+          return [];
+        }
+      }),
+      catchError((error) => {
+        console.error('Error in getUserRoles:', error);
+        return of([]);
+      })
+    );
+  }
+
+  /**
+   * Safely perform login
+   * Does nothing in server-side rendering
+   */
+  login(options?: any): Promise<void> {
+    if (!this.isBrowser()) {
+      console.warn('Login attempted in SSR, ignoring');
+      return Promise.resolve();
+    }
+
+    return this.keycloak
+      .login(options)
+      .then(() => this.updateStatus())
+      .catch((error) => {
+        console.error('Login error:', error);
+        this.updateStatus();
+        throw error;
+      });
+  }
+
+  /**
+   * Safely perform logout
+   * Does nothing in server-side rendering
+   */
+  logout(redirectUri?: string): Promise<void> {
+    if (!this.isBrowser()) {
+      console.warn('Logout attempted in SSR, ignoring');
+      return Promise.resolve();
+    }
+
+    return this.keycloak
+      .logout(redirectUri)
+      .then(() => this.updateStatus())
+      .catch((error) => {
+        console.error('Logout error:', error);
+        this.updateStatus();
+        throw error;
+      });
+  }
+
+  /**
+   * Safely check if user has a specific role
+   * Returns false in server-side rendering
+   */
+  hasRole(role: string): Observable<boolean> {
+    return this.getUserRoles().pipe(
+      map((roles) => roles.some((r) => r.toLowerCase() === role.toLowerCase()))
+    );
+  }
+
+  /**
+   * Get the underlying Keycloak instance for advanced operations
+   * Returns null in server-side rendering
+   */
+  getKeycloakInstance(): KeycloakInstance | null {
+    if (!this.isBrowser()) {
+      return null;
+    }
+
+    try {
+      return this.keycloak.getKeycloakInstance();
+    } catch (error) {
+      console.error('Error getting Keycloak instance:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Manually initialize Keycloak with custom config
+   * Useful for testing different configurations
+   */
+  initializeKeycloak(config?: KeycloakConfig): Promise<boolean> {
+    if (!this.isBrowser()) {
+      console.warn('Initialization attempted in SSR, ignoring');
+      return Promise.resolve(false);
+    }
+
+    // Use provided config or fallback to default
+    const keycloakConfig = config || this.config;
+
+    try {
+      return this.keycloak
+        .init({
+          config: {
+            url: keycloakConfig.url,
+            realm: keycloakConfig.realm,
+            clientId: keycloakConfig.clientId,
+          },
+          initOptions: {
+            onLoad: 'check-sso',
+            silentCheckSsoRedirectUri:
+              window.location.origin + '/assets/silent-check-sso.html',
+            checkLoginIframe: false,
+          },
+          enableBearerInterceptor: true,
+          bearerPrefix: 'Bearer',
+          bearerExcludedUrls: ['/assets', '/public'],
+        })
+        .then((success) => {
+          this.updateStatus();
+          return success;
+        })
+        .catch((error) => {
+          console.error('Error initializing Keycloak:', error);
+          this.updateStatus();
+          return false;
+        });
+    } catch (error) {
+      console.error('Exception during Keycloak initialization:', error);
+      this.updateStatus();
+      return Promise.resolve(false);
+    }
+  }
+}
+
+
+================================================
+File: src/app/unauthorized/unauthorized.component.html
+================================================
+<p>unauthorized works!</p>
+
+
+================================================
+File: src/app/unauthorized/unauthorized.component.spec.ts
+================================================
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { UnauthorizedComponent } from './unauthorized.component';
+
+describe('UnauthorizedComponent', () => {
+  let component: UnauthorizedComponent;
+  let fixture: ComponentFixture<UnauthorizedComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [UnauthorizedComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(UnauthorizedComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+
+================================================
+File: src/app/unauthorized/unauthorized.component.ts
+================================================
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
+import { KeycloakWrapperService } from '../services/keycloak-wrapper.service';
+
+@Component({
+  selector: 'app-unauthorized',
+  standalone: true,
+  template: `
+    <div class="flex items-center justify-center min-h-screen bg-gray-100">
+      <div class="p-8 bg-white shadow-lg rounded-lg max-w-md w-full">
+        <div class="flex flex-col items-center">
+          <div class="bg-red-100 p-3 rounded-full">
+            <svg
+              class="w-16 h-16 text-red-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+              />
+            </svg>
+          </div>
+
+          <h2 class="mt-4 text-2xl font-bold text-gray-900">Access Denied</h2>
+          <p class="mt-2 text-gray-600 text-center">
+            You don't have permission to access this page. Please contact your
+            administrator if you believe this is an error.
+          </p>
+
+          <div class="mt-6 flex space-x-4">
+            <button
+              (click)="goToHome()"
+              class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            >
+              Return to Home
+            </button>
+
+            @if (!isLoggedIn()) {
+            <button
+              (click)="login()"
+              class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+            >
+              Login
+            </button>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  `,
+})
+export class UnauthorizedComponent implements OnInit {
+  private router = inject(Router);
+  private keycloakWrapper = inject(KeycloakWrapperService);
+
+  isLoggedIn = signal<boolean>(false);
+
+  ngOnInit(): void {
+    this.checkLoginStatus();
+  }
+
+  async checkLoginStatus(): Promise<void> {
+    try {
+      // The wrapper service handles SSR detection internally
+      const isLoggedIn$ = this.keycloakWrapper.isLoggedIn();
+      this.isLoggedIn.set(await firstValueFrom(isLoggedIn$));
+    } catch (error) {
+      console.error('Error checking login status:', error);
+    }
+  }
+
+  goToHome(): void {
+    this.router.navigate(['/']);
+  }
+
+  login(): void {
+    this.keycloakWrapper.login();
+  }
+}
+
+
+================================================
+File: src/assets/silent-check-sso.html
+================================================
+<html>
+  <body>
+    <script>
+      parent.postMessage(location.href, location.origin);
+    </script>
+  </body>
+</html>
+
+
+================================================
+File: src/index.html
+================================================
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>AngularKeycloak</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>
+
+
+================================================
+File: src/main.server.ts
+================================================
+import { bootstrapApplication } from '@angular/platform-browser';
+import { AppComponent } from './app/app.component';
+import { config } from './app/app.config.server';
+
+const bootstrap = () => bootstrapApplication(AppComponent, config);
+
+export default bootstrap;
+
+
+================================================
+File: src/main.ts
+================================================
+import { bootstrapApplication } from '@angular/platform-browser';
+import { appConfig } from './app/app.config';
+import { AppComponent } from './app/app.component';
+
+bootstrapApplication(AppComponent, appConfig)
+  .catch((err) => console.error(err));
+
+
+================================================
+File: src/server.ts
+================================================
+import {
+  AngularNodeAppEngine,
+  createNodeRequestHandler,
+  isMainModule,
+  writeResponseToNodeResponse,
+} from '@angular/ssr/node';
+import express from 'express';
+import fs from 'fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const serverDistFolder = dirname(fileURLToPath(import.meta.url));
+const browserDistFolder = resolve(serverDistFolder, '../browser');
+const assetsFolder = resolve(browserDistFolder, 'assets');
+
+// Ensure assets folder exists
+if (!fs.existsSync(assetsFolder)) {
+  fs.mkdirSync(assetsFolder, { recursive: true });
+}
+
+// Create the silent-check-sso.html file if it doesn't exist
+const silentCheckSsoPath = resolve(assetsFolder, 'silent-check-sso.html');
+if (!fs.existsSync(silentCheckSsoPath)) {
+  const htmlContent = `<html>
+  <body>
+    <script>
+      parent.postMessage(location.href, location.origin);
+    </script>
+  </body>
+</html>`;
+
+  fs.writeFileSync(silentCheckSsoPath, htmlContent);
+  console.log('Created silent-check-sso.html file');
+}
+
+const app = express();
+const angularApp = new AngularNodeAppEngine();
+
+/**
+ * Serve static files from /browser with appropriate cache headers
+ */
+app.use(
+  express.static(browserDistFolder, {
+    maxAge: '1y',
+    index: false,
+    redirect: false,
+  })
+);
+
+/**
+ * Special handling for silent-check-sso.html to ensure proper Keycloak SSO flow
+ */
+app.get('/assets/silent-check-sso.html', (req, res) => {
+  res.sendFile(resolve(assetsFolder, 'silent-check-sso.html'));
+});
+
+/**
+ * Add a keycloak.json route to serve the Keycloak configuration
+ * This allows dynamic configuration without hardcoding values
+ */
+app.get('/keycloak.json', (req, res) => {
+  res.json({
+    realm: 'ofelwin',
+    'auth-server-url': 'http://localhost:8080',
+    'ssl-required': 'external',
+    resource: 'ofelwin-client-250312',
+    'public-client': true,
+    'confidential-port': 0,
+  });
+});
+
+/**
+ * API route for checking server status
+ */
+app.get('/api/status', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+/**
+ * Handle all other requests by rendering the Angular application
+ */
+app.use('/**', (req, res, next) => {
+  // Skip SSR for these routes related to authentication flow
+  const skipSsrRoutes = ['/silent-check-sso.html', '/keycloak'];
+  if (skipSsrRoutes.some((route) => req.url.includes(route))) {
+    return res.sendFile(resolve(browserDistFolder, 'index.html'));
+  }
+
+  // Handle normal SSR routes
+  angularApp
+    .handle(req)
+    .then((response) =>
+      response ? writeResponseToNodeResponse(response, res) : next()
+    )
+    .catch((err) => {
+      console.error('SSR Error:', err);
+      // Fall back to serving the index.html in case of SSR errors
+      res.sendFile(resolve(browserDistFolder, 'index.html'));
+    });
+});
+
+/**
+ * Error handler
+ */
+app.use(
+  (
+    err: any,
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    console.error('Server error:', err);
+    res.status(500).send('Server Error');
+  }
+);
+
+/**
+ * Start the server if this module is the main entry point
+ */
+if (isMainModule(import.meta.url)) {
+  const port = process.env['PORT'] || 4000;
+  app.listen(port, () => {
+    console.log(`Node Express server listening on http://localhost:${port}`);
+  });
+}
+
+/**
+ * Request handler used by the Angular CLI or Firebase Cloud Functions
+ */
+export const reqHandler = createNodeRequestHandler(app);
+
+
+================================================
+File: src/styles.scss
+================================================
+/* You can add global styles to this file, and also import other style files */
+
+
+================================================
+File: tsconfig.app.json
+================================================
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "types": [
+      "node"
+    ]
+  },
+  "files": [
+    "src/main.ts",
+    "src/main.server.ts",
+    "src/server.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ]
+}
+
+
+================================================
+File: tsconfig.json
+================================================
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "outDir": "./dist/out-tsc",
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "bundler",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022"
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}
+
+
+================================================
+File: tsconfig.spec.json
+================================================
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec",
+    "types": [
+      "jasmine"
+    ]
+  },
+  "include": [
+    "src/**/*.spec.ts",
+    "src/**/*.d.ts"
+  ]
+}
+

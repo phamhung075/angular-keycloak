@@ -1,3 +1,38 @@
+// app.routes.ts
 import { Routes } from '@angular/router';
+import { AuthGuard } from './auth/auth.guard';
+import { HomeComponent } from './home/home.component';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'profile',
+    component: HomeComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['user', 'admin'],
+    },
+  },
+  {
+    path: 'debug',
+    loadComponent: () =>
+      import('./keycloak-diagnostic/keycloak-diagnostic.component').then(
+        (c) => c.KeycloakDiagnosticComponent
+      ),
+  },
+  {
+    path: 'unauthorized',
+    loadComponent: () =>
+      import('./unauthorized/unauthorized.component').then(
+        (c) => c.UnauthorizedComponent
+      ),
+  },
+  {
+    path: '**',
+    redirectTo: '',
+  },
+];
