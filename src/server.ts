@@ -63,7 +63,7 @@ app.get('/keycloak.json', (req, res) => {
     realm: 'ofelwin',
     'auth-server-url': 'http://localhost:8080',
     'ssl-required': 'external',
-    resource: 'ofelwin-client-250312',
+    resource: 'ofelwin-client-angular',
     'public-client': true,
     'confidential-port': 0,
   });

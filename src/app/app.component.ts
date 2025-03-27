@@ -90,11 +90,11 @@ export class AppComponent implements OnInit {
     }
   }
 
-  public login(): void {
-    this.keycloakWrapper.login();
+  public async login(): Promise<void> {
+    await this.keycloakWrapper.login();
   }
 
-  public logout(): void {
-    this.keycloakWrapper.logout(window.location.origin);
+  public async logout(): Promise<void> {
+    await this.keycloakWrapper.logout(window.location.origin);
   }
 }
