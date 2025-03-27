@@ -1,5 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import {
+  HttpClient,
   HttpInterceptorFn,
   provideHttpClient,
   withFetch,
@@ -24,14 +25,13 @@ import { KeycloakErrorHandler } from './services/keycloak-error-handler.service'
 import { KeycloakWrapperService } from './services/keycloak-wrapper.service';
 
 // Function to initialize Keycloak
-// keycloak-init.ts
-
-export function initializeKeycloak(
-  keycloak: KeycloakService
+function initializeKeycloak(
+  keycloak: KeycloakService,
+  httpClient: HttpClient,
+  platformId: Object
 ): () => Promise<boolean> {
   return async (): Promise<boolean> => {
     // Check if we're in a browser environment
-    const platformId = inject(PLATFORM_ID);
     if (!isPlatformBrowser(platformId)) {
       // Skip Keycloak initialization in SSR mode
       console.log('Skipping Keycloak initialization in server environment');
@@ -41,94 +41,25 @@ export function initializeKeycloak(
     try {
       console.log('Initializing Keycloak...');
 
-      // Add more detailed logging for initialization
-      const startTime = Date.now();
-
-      // Initialize Keycloak with proper configuration and additional logging
-      const success = await keycloak.init({
+      // Initialize Keycloak with proper configuration
+      return await keycloak.init({
         config: {
           url: 'http://localhost:8080',
           realm: 'ofelwin',
-          clientId: 'ofelwin-client-250312',
+          clientId: 'ofelwin-client-angular',
         },
         initOptions: {
           onLoad: 'check-sso',
           silentCheckSsoRedirectUri:
             window.location.origin + '/assets/silent-check-sso.html',
-          checkLoginIframe: false, // Recommended for better performance
-
-          // Add a flow to improve debugging - can be removed in production
-          flow: 'standard', // Alternatives: 'implicit', 'hybrid'
-
-          // Add response mode for better compatibility
-          responseMode: 'fragment',
+          checkLoginIframe: false,
         },
-        // Configure bearer token handling
         enableBearerInterceptor: true,
         bearerPrefix: 'Bearer',
         bearerExcludedUrls: ['/assets', '/public', '/debug'],
       });
-
-      const endTime = Date.now();
-      const initTime = endTime - startTime;
-
-      if (success) {
-        console.log(`Keycloak initialization successful (${initTime}ms)`);
-
-        // Log authentication status
-        const instance = keycloak.getKeycloakInstance();
-        console.log(
-          `Authentication status: ${
-            instance.authenticated ? 'Authenticated' : 'Not authenticated'
-          }`
-        );
-
-        if (instance.authenticated) {
-          // Log token info (without exposing the full token)
-          const tokenExpiry = instance.tokenParsed?.exp
-            ? new Date(instance.tokenParsed.exp * 1000).toISOString()
-            : 'unknown';
-
-          console.log(`Token expires: ${tokenExpiry}`);
-        }
-      } else {
-        console.warn(
-          `Keycloak initialization completed without error but returned false (${initTime}ms)`
-        );
-      }
-
-      return success;
     } catch (error) {
       console.error('Error initializing Keycloak:', error);
-
-      // Provide more detailed diagnostics based on error type
-      if (error instanceof Error) {
-        console.error(`Error name: ${error.name}, message: ${error.message}`);
-
-        if (
-          error.name === 'NetworkError' ||
-          error.message.includes('network')
-        ) {
-          console.error(
-            'Network error detected. Please check if Keycloak server is running and accessible.'
-          );
-        } else if (error.message.includes('realm')) {
-          console.error(
-            'Realm error detected. Please verify the realm "ofelwin" exists on the Keycloak server.'
-          );
-        } else if (error.message.includes('client')) {
-          console.error(
-            'Client error detected. Please verify the client "ofelwin-client-250312" is properly configured.'
-          );
-        }
-
-        // Suggest visiting the debug route
-        console.info(
-          'Consider accessing the /debug route to diagnose Keycloak connection issues.'
-        );
-      }
-
-      // Return false to indicate initialization failure
       return false;
     }
   };
@@ -182,21 +113,25 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
 
+    // Configure HTTP client with custom interceptor
+    provideHttpClient(withFetch(), withInterceptors([keycloakInterceptor])),
+
     // Provide Keycloak service
     KeycloakService,
 
     // Provide our wrapper service
     KeycloakWrapperService,
 
-    // Configure HTTP client with custom interceptor
-    provideHttpClient(withFetch(), withInterceptors([keycloakInterceptor])),
-
-    // Initialize Keycloak
+    // Initialize Keycloak with proper dependency injection
     {
       provide: APP_INITIALIZER,
-      useFactory: initializeKeycloak,
+      useFactory: (
+        keycloak: KeycloakService,
+        httpClient: HttpClient,
+        platformId: Object
+      ) => initializeKeycloak(keycloak, httpClient, platformId),
       multi: true,
-      deps: [KeycloakService],
+      deps: [KeycloakService, HttpClient, PLATFORM_ID],
     },
 
     // Custom error handler for better Keycloak error messages

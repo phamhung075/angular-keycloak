@@ -1,0 +1,10 @@
+{
+  "realm": "ofelwin",
+  "auth-server-url": "http://localhost:8080",
+  "ssl-required": "none",
+  "resource": "ofelwin-client-angular",
+  "credentials": {
+    "secret": "nntV9z6pOwnFjCp5SyWeINk5Y2Ql4B0Z"
+  },
+  "confidential-port": 0
+}

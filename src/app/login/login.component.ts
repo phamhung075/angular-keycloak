@@ -13,6 +13,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as keycloakConfig from '../../../environment/keycloak.json';
 
 interface KeycloakConfig {
   url: string;
@@ -46,9 +47,9 @@ export class LoginComponent {
 
   // Keycloak configuration
   private keycloakConfig: KeycloakConfig = {
-    url: 'http://localhost:8080',
-    realm: 'ofelwin',
-    clientId: 'ofelwin-client-250312',
+    url: keycloakConfig['auth-server-url'],
+    realm: keycloakConfig.realm,
+    clientId: keycloakConfig.resource,
   };
 
   // Form state

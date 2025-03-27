@@ -42,7 +42,7 @@ export class AuthService {
   private keycloakConfig: KeycloakConfig = {
     url: 'http://localhost:8080',
     realm: 'ofelwin',
-    clientId: 'ofelwin-client-250312',
+    clientId: 'ofelwin-client-angular',
   };
 
   private tokenUrl: string;

@@ -2,6 +2,7 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
 import { HomeComponent } from './home/home.component';
+import { KeycloakDiagnosticComponent } from './keycloak-diagnostic/keycloak-diagnostic.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 
@@ -15,7 +16,7 @@ export const routes: Routes = [
   },
   {
     path: 'profile',
-    component: HomeComponent,
+    component: ProfileComponent,
     canActivate: [AuthGuard],
     data: {
       roles: ['user', 'admin'],
@@ -23,10 +24,7 @@ export const routes: Routes = [
   },
   {
     path: 'debug',
-    loadComponent: () =>
-      import('./keycloak-diagnostic/keycloak-diagnostic.component').then(
-        (c) => c.KeycloakDiagnosticComponent
-      ),
+    component: KeycloakDiagnosticComponent,
   },
   {
     path: 'unauthorized',
@@ -34,11 +32,6 @@ export const routes: Routes = [
       import('./unauthorized/unauthorized.component').then(
         (c) => c.UnauthorizedComponent
       ),
-  },
-  {
-    path: 'profile',
-    component: ProfileComponent,
-    canActivate: [AuthGuard],
   },
   {
     path: '**',
